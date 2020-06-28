@@ -7,7 +7,8 @@ const dispatch = createEventDispatcher()
 let playNotes = new Set()
 
 function checkPlayNotes() {
-  if ($sheetNotes.length <= playNotes.size &&
+  if ($sheetNotes.length !== 0 &&
+      $sheetNotes.length <= playNotes.size &&
       $sheetNotes.every(value => playNotes.has(value))) {
     dispatch('match')
   }
