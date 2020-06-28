@@ -34,7 +34,7 @@ function getCurrentMeasure() {
 }
 
 function getMeasuresInLine(measure) {
-  if (measure < 0) {
+  if (measure < firstMeasure) {
     return null
   }
   return osmd.GraphicSheet.MeasureList[measure - firstMeasure][0]
