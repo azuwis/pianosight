@@ -1,29 +1,21 @@
 <script>
-import { onMount, onDestroy } from 'svelte'
+import { onMount } from 'svelte'
 import opensheetmusicdisplay from 'opensheetmusicdisplay'
-import WebMidi from 'webmidi'
+import { sheetNotes } from './stores.js'
+import Midi from './Midi.svelte'
 
 let osmd
 let container
-let sheetNotes = []
-let playNotes = new Set()
 let stavesToCheck = new Set()
 let firstMeasure = 0
 let lastMeasure = 0
 let numbers = []
 
 function updateSheetNotes() {
-  sheetNotes = osmd.cursor.NotesUnderCursor()
+  $sheetNotes = osmd.cursor.NotesUnderCursor()
     .filter(n => n.halfTone > 0 &&
       (stavesToCheck.size === 0 || stavesToCheck.has(n.ParentStaff.Id)))
     .map(n => n.halfTone + 12)
-}
-
-function checkPlayNotes() {
-  if (sheetNotes.length <= playNotes.size &&
-      sheetNotes.every(value => playNotes.has(value))) {
-    goToNextNote()
-  }
 }
 
 function goToNextNote() {
@@ -171,30 +163,10 @@ onMount(async() => {
   firstMeasure = getCurrentMeasure()
   lastMeasure = osmd.Sheet.SourceMeasures.length + firstMeasure - 1
   updateSheetNotes()
-
-  WebMidi.enable((err) => {
-    if (err) {
-      console.log("WebMidi could not be enabled.", err)
-      return
-    }
-    const input = WebMidi.inputs[1]
-    input.addListener('noteon', 'all', event => {
-      playNotes.add(event.note.number)
-      checkPlayNotes()
-    })
-    input.addListener('noteoff', 'all', event => {
-      playNotes.delete(event.note.number)
-      checkPlayNotes()
-    })
-  })
-})
-
-onDestroy(() => {
-  WebMidi.inputs[1].removeListener()
-  WebMidi.disable()
 })
 </script>
 
 <svelte:window on:keydown={handleKeydown}/>
-<div>{sheetNotes}</div>
+<div>{$sheetNotes}</div>
 <div class="container" bind:this={container}></div>
+<Midi on:match={goToNextNote}/>
