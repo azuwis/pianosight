@@ -6,7 +6,9 @@
     "build": "vite build"
   },
   "dependencies": {
-    "svelte": "^3.23.2"
+    "opensheetmusicdisplay": "^0.8.2",
+    "svelte": "^3.23.2",
+    "webmidi": "^2.5.1"
   },
   "devDependencies": {
     "vite": "^1.0.0-beta.6",
