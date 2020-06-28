@@ -1,12 +1,11 @@
 <script>
 import { onMount } from 'svelte'
 import opensheetmusicdisplay from 'opensheetmusicdisplay'
-import { sheetNotes } from './stores.js'
+import { sheetNotes, stavesToCheck } from './stores.js'
 import Midi from './Midi.svelte'
 
 let osmd
 let container
-let stavesToCheck = new Set()
 let firstMeasure = 0
 let lastMeasure = 0
 let numbers = []
@@ -14,7 +13,7 @@ let numbers = []
 function updateSheetNotes() {
   $sheetNotes = osmd.cursor.NotesUnderCursor()
     .filter(n => n.halfTone > 0 &&
-      (stavesToCheck.size === 0 || stavesToCheck.has(n.ParentStaff.Id)))
+      ($stavesToCheck.size === 0 || $stavesToCheck.has(n.ParentStaff.Id)))
     .map(n => n.halfTone + 12)
 }
 
@@ -144,9 +143,8 @@ function handleKeydown(event) {
       }
       break
     case 's':
-      stavesToCheck = new Set(numbers)
+      $stavesToCheck = new Set(numbers)
       numbers = []
-      updateSheetNotes()
       break
   }
 }
@@ -163,6 +161,10 @@ onMount(async() => {
   firstMeasure = getCurrentMeasure()
   lastMeasure = osmd.Sheet.SourceMeasures.length + firstMeasure - 1
   updateSheetNotes()
+
+  stavesToCheck.subscribe(() => {
+    updateSheetNotes()
+  })
 })
 </script>
 
