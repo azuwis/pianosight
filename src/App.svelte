@@ -1,7 +1,7 @@
 <script>
 import { onMount } from 'svelte'
 import opensheetmusicdisplay from 'opensheetmusicdisplay'
-import { sheetNotes, stavesToCheck } from './stores.js'
+import { sheetMusic, sheetNotes, stavesToCheck } from './stores.js'
 import Midi from './Midi.svelte'
 
 let osmd
@@ -10,7 +10,19 @@ let firstMeasure = 0
 let lastMeasure = 0
 let numbers = []
 
+async function loadSheet(sheet) {
+  await osmd.load(sheet)
+  osmd.render()
+  osmd.cursor.show()
+  firstMeasure = getCurrentMeasure()
+  lastMeasure = osmd.Sheet.SourceMeasures.length + firstMeasure - 1
+  updateSheetNotes()
+}
+
 function updateSheetNotes() {
+  if (!osmd.cursor) {
+    return
+  }
   $sheetNotes = osmd.cursor.NotesUnderCursor()
     .filter(n => n.halfTone > 0 &&
       ($stavesToCheck.size === 0 || $stavesToCheck.has(n.ParentStaff.Id)))
@@ -153,15 +165,9 @@ onMount(async() => {
   osmd = new opensheetmusicdisplay.OpenSheetMusicDisplay(container, {
     followCursor: true
   })
-  await osmd.load('music.xml')
-  osmd.render()
-  osmd.cursor.show()
-  window.osmd = osmd
-
-  firstMeasure = getCurrentMeasure()
-  lastMeasure = osmd.Sheet.SourceMeasures.length + firstMeasure - 1
-  updateSheetNotes()
-
+  sheetMusic.subscribe(sheet => {
+    loadSheet(sheet)
+  })
   stavesToCheck.subscribe(() => {
     updateSheetNotes()
   })
