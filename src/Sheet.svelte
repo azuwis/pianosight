@@ -18,9 +18,6 @@ async function loadSheet(sheet) {
 }
 
 function updateSheetNotes() {
-  if (!osmd.cursor) {
-    return
-  }
   $sheetNotes = osmd.cursor.NotesUnderCursor()
     .filter(n => n.halfTone > 0 &&
       ($stavesToCheck.size === 0 || $stavesToCheck.has(n.ParentStaff.Id)))
@@ -111,6 +108,10 @@ export function goToNextLine() {
   goToMeasure(nextMeasure)
 }
 
+$: if ($playMatch > 0) {
+  goToNextNote()
+}
+
 onMount(async() => {
   osmd = new opensheetmusicdisplay.OpenSheetMusicDisplay(container, {
     followCursor: true
@@ -119,14 +120,11 @@ onMount(async() => {
     loadSheet(sheet)
   }))
   onDestroy(stavesToCheck.subscribe(() => {
-    updateSheetNotes()
-  }))
-  $playMatch = 0
-  onDestroy(playMatch.subscribe(match => {
-    if (match > 0) {
-      goToNextNote()
+    if (osmd.cursor) {
+      updateSheetNotes()
     }
   }))
+  $playMatch = 0
 })
 </script>
 

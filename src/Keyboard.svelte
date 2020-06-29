@@ -1,5 +1,4 @@
 <script>
-import { onDestroy } from 'svelte'
 import { sheetNotes } from './stores.js'
 import {
   renderKeys,
@@ -26,13 +25,11 @@ const text = getTextElements(keys[39]).text
 function handleClick(key, index) {
 }
 
-onDestroy(sheetNotes.subscribe(notes => {
-  keys = keys.map(key =>
-    notes.includes(key.index + 12) ?
+$: keys = keys.map(key =>
+    $sheetNotes.includes(key.index + 12) ?
       {...key, fill: 'purple'} :
       {...key, fill: key.defaultFill}
-  )
-}))
+)
 </script>
 
 <svg width={dimensions[0]} height={dimensions[1]} style="margin:0">
