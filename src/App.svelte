@@ -3,12 +3,14 @@ import { onMount } from 'svelte'
 import opensheetmusicdisplay from 'opensheetmusicdisplay'
 import { sheetMusic, sheetNotes, stavesToCheck } from './stores.js'
 import Midi from './Midi.svelte'
+import Keyboard from './Keyboard.svelte'
 
 let osmd
 let container
 let firstMeasure = 0
 let lastMeasure = 0
 let numbers = []
+let keyboard = true
 
 async function loadSheet(sheet) {
   await osmd.load(sheet)
@@ -136,6 +138,9 @@ function handleKeydown(event) {
     case 'G':
       goToLastMeasure()
       break
+    case 'p':
+      keyboard = !keyboard
+      break
     case '0':
     case '1':
     case '2':
@@ -175,6 +180,10 @@ onMount(async() => {
 </script>
 
 <svelte:window on:keydown={handleKeydown}/>
-<div>{$sheetNotes}</div>
-<div bind:this={container}></div>
+<div bind:this={container} class:pb-16={keyboard}></div>
+{#if keyboard}
+<div class="fixed bottom-0">
+  <Keyboard/>
+</div>
+{/if}
 <Midi on:match={goToNextNote}/>
