@@ -1,142 +1,35 @@
 <script>
-import { onMount, onDestroy } from 'svelte'
-import opensheetmusicdisplay from 'opensheetmusicdisplay'
-import { sheetMusic, sheetNotes, stavesToCheck, playMatch } from './stores.js'
-import Midi from './Midi.svelte'
+import { stavesToCheck } from './stores.js'
+import Sheet from './Sheet.svelte'
 import Keyboard from './Keyboard.svelte'
+import Midi from './Midi.svelte'
 
-let osmd
-let container
-let firstMeasure = 0
-let lastMeasure = 0
 let numbers = []
+let sheet
 let keyboard = true
-
-async function loadSheet(sheet) {
-  await osmd.load(sheet)
-  osmd.render()
-  osmd.cursor.show()
-  firstMeasure = getCurrentMeasure()
-  lastMeasure = osmd.Sheet.SourceMeasures.length + firstMeasure - 1
-  updateSheetNotes()
-}
-
-function updateSheetNotes() {
-  if (!osmd.cursor) {
-    return
-  }
-  $sheetNotes = osmd.cursor.NotesUnderCursor()
-    .filter(n => n.halfTone > 0 &&
-      ($stavesToCheck.size === 0 || $stavesToCheck.has(n.ParentStaff.Id)))
-    .map(n => n.halfTone + 12)
-}
-
-function goToNextNote() {
-  osmd.cursor.next()
-  updateSheetNotes()
-}
-
-function getCurrentMeasure() {
-  const currentMeasure = osmd.cursor
-    .VoicesUnderCursor()[0].ParentSourceStaffEntry
-    .VerticalContainerParent.ParentMeasure
-  if (currentMeasure) {
-    return currentMeasure.MeasureNumber
-  } else {
-    return -1
-  }
-}
-
-function getMeasuresInLine(measure) {
-  if (measure < firstMeasure) {
-    return null
-  }
-  return osmd.GraphicSheet.MeasureList[measure - firstMeasure][0]
-    .ParentStaffLine.Measures
-}
-
-function goToMeasure(measure) {
-  if (measure < firstMeasure || measure > lastMeasure) {
-    return
-  }
-  osmd.cursor.reset()
-  let currentMeasure = getCurrentMeasure()
-  while (currentMeasure >= 0 && currentMeasure < measure) {
-    osmd.cursor.next()
-    currentMeasure = getCurrentMeasure()
-  }
-  updateSheetNotes()
-}
-
-function goToPreviousMeasure() {
-  goToMeasure(getCurrentMeasure() - 1)
-}
-
-function goToNextMeasure() {
-  goToMeasure(getCurrentMeasure() + 1)
-}
-
-function goToFirstMeasure() {
-  osmd.cursor.reset()
-  updateSheetNotes()
-}
-
-function goToLastMeasure() {
-  goToMeasure(lastMeasure)
-}
-
-function goToPreviousLine() {
-  const measuresInLine = getMeasuresInLine(getCurrentMeasure())
-  if (!measuresInLine) {
-    return
-  }
-  const firstMeasureOfLine = measuresInLine[0].measureNumber
-  const measuresInPreviousLine = getMeasuresInLine(
-    firstMeasureOfLine - 1
-  )
-  if (!measuresInPreviousLine) {
-    return
-  }
-  const firstMeasureOfPreviousLine =
-    measuresInPreviousLine[0].MeasureNumber
-  goToMeasure(firstMeasureOfPreviousLine)
-}
-
-function goToNextLine() {
-  const measuresInLine = getMeasuresInLine(getCurrentMeasure())
-  if (!measuresInLine) {
-    return
-  }
-  const lastMeasureOfLine = measuresInLine.last().MeasureNumber
-  const nextMeasure = lastMeasureOfLine + 1
-  if (nextMeasure > osmd.GraphicSheet.MeasureList.length) {
-    return
-  }
-  goToMeasure(nextMeasure)
-}
 
 function handleKeydown(event) {
   switch(event.key) {
     case 'n':
-      goToNextNote()
+      sheet.goToNextNote()
       break
     case 'h':
-      goToPreviousMeasure()
+      sheet.goToPreviousMeasure()
       break
     case 'l':
-      goToNextMeasure()
+      sheet.goToNextMeasure()
       break
     case 'k':
-      goToPreviousLine()
+      sheet.goToPreviousLine()
       break
     case 'j':
-      goToNextLine()
+      sheet.goToNextLine()
       break
     case 'r':
-      goToFirstMeasure()
+      sheet.goToFirstMeasure()
       break
     case 'G':
-      goToLastMeasure()
+      sheet.goToLastMeasure()
       break
     case 'p':
       keyboard = !keyboard
@@ -155,7 +48,7 @@ function handleKeydown(event) {
       break
     case 'g':
       if (numbers.length > 0) {
-        goToMeasure(parseInt(numbers.join('')))
+        sheet.goToMeasure(parseInt(numbers.join('')))
         numbers = []
       }
       break
@@ -166,27 +59,12 @@ function handleKeydown(event) {
   }
 }
 
-onMount(async() => {
-  osmd = new opensheetmusicdisplay.OpenSheetMusicDisplay(container, {
-    followCursor: true
-  })
-  onDestroy(sheetMusic.subscribe(sheet => {
-    loadSheet(sheet)
-  }))
-  onDestroy(stavesToCheck.subscribe(() => {
-    updateSheetNotes()
-  }))
-  $playMatch = 0
-  onDestroy(playMatch.subscribe(match => {
-    if (match > 0) {
-      goToNextNote()
-    }
-  }))
-})
 </script>
 
 <svelte:window on:keydown={handleKeydown}/>
-<div bind:this={container} class:pb-16={keyboard}></div>
+<div class:pb-16={keyboard}>
+  <Sheet bind:this={sheet}/>
+</div>
 {#if keyboard}
 <div class="fixed bottom-0 w-screen flex justify-center">
   <Keyboard/>
