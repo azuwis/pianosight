@@ -188,7 +188,7 @@ onMount(async() => {
 <svelte:window on:keydown={handleKeydown}/>
 <div bind:this={container} class:pb-16={keyboard}></div>
 {#if keyboard}
-<div class="fixed bottom-0">
+<div class="fixed bottom-0 w-screen flex justify-center">
   <Keyboard/>
 </div>
 {/if}
