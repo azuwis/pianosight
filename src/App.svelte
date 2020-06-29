@@ -1,5 +1,5 @@
 <script>
-import { onMount } from 'svelte'
+import { onMount, onDestroy } from 'svelte'
 import opensheetmusicdisplay from 'opensheetmusicdisplay'
 import { sheetMusic, sheetNotes, stavesToCheck } from './stores.js'
 import Midi from './Midi.svelte'
@@ -170,12 +170,12 @@ onMount(async() => {
   osmd = new opensheetmusicdisplay.OpenSheetMusicDisplay(container, {
     followCursor: true
   })
-  sheetMusic.subscribe(sheet => {
+  onDestroy(sheetMusic.subscribe(sheet => {
     loadSheet(sheet)
-  })
-  stavesToCheck.subscribe(() => {
+  }))
+  onDestroy(stavesToCheck.subscribe(() => {
     updateSheetNotes()
-  })
+  }))
 })
 </script>
 

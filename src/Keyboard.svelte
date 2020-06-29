@@ -26,15 +26,13 @@ const text = getTextElements(keys[39]).text
 function handleClick(key, index) {
 }
 
-const unsubscribe = sheetNotes.subscribe(notes => {
+onDestroy(sheetNotes.subscribe(notes => {
   keys = keys.map(key =>
     notes.includes(key.index + 12) ?
       {...key, fill: 'purple'} :
       {...key, fill: key.defaultFill}
   )
-})
-
-onDestroy(unsubscribe)
+}))
 </script>
 
 <svg width={dimensions[0]} height={dimensions[1]} style="margin:0">
