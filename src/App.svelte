@@ -176,5 +176,5 @@ onMount(async() => {
 
 <svelte:window on:keydown={handleKeydown}/>
 <div>{$sheetNotes}</div>
-<div class="container" bind:this={container}></div>
+<div bind:this={container}></div>
 <Midi on:match={goToNextNote}/>
