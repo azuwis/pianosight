@@ -1,7 +1,7 @@
 <script>
 import { onMount, onDestroy } from 'svelte'
 import opensheetmusicdisplay from 'opensheetmusicdisplay'
-import { sheetMusic, sheetNotes, stavesToCheck } from './stores.js'
+import { sheetMusic, sheetNotes, stavesToCheck, playMatch } from './stores.js'
 import Midi from './Midi.svelte'
 import Keyboard from './Keyboard.svelte'
 
@@ -176,6 +176,12 @@ onMount(async() => {
   onDestroy(stavesToCheck.subscribe(() => {
     updateSheetNotes()
   }))
+  $playMatch = 0
+  onDestroy(playMatch.subscribe(match => {
+    if (match > 0) {
+      goToNextNote()
+    }
+  }))
 })
 </script>
 
@@ -186,4 +192,4 @@ onMount(async() => {
   <Keyboard/>
 </div>
 {/if}
-<Midi on:match={goToNextNote}/>
+<Midi/>
