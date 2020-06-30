@@ -3,9 +3,11 @@ import { stavesToCheck } from './stores.js'
 import Sheet from './Sheet.svelte'
 import Keyboard from './Keyboard.svelte'
 import Midi from './Midi.svelte'
+import File from './File.svelte'
 
 let numbers = []
 let sheet
+let file
 let keyboard = true
 
 function handleKeydown(event) {
@@ -33,6 +35,9 @@ function handleKeydown(event) {
       break
     case 'p':
       keyboard = !keyboard
+      break
+    case 'o':
+      file.open()
       break
     case '0':
     case '1':
@@ -62,6 +67,7 @@ function handleKeydown(event) {
 </script>
 
 <svelte:window on:keydown={handleKeydown}/>
+<File bind:this={file}/>
 <div class:pb-16={keyboard}>
   <Sheet bind:this={sheet}/>
 </div>
