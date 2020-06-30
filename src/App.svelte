@@ -61,6 +61,9 @@ function handleKeydown(event) {
       $stavesToCheck = new Set(numbers)
       numbers = []
       break
+    case 'Escape':
+      numbers = []
+      break
   }
 }
 
