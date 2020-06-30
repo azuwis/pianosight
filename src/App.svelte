@@ -70,13 +70,13 @@ function handleKeydown(event) {
 </script>
 
 <svelte:window on:keydown={handleKeydown}/>
-<span class="fixed right-0 bg-gray-400 rounded-bl px-1">{numbers.join('')}</span>
+<span id="numbers" class="fixed right-0 bg-gray-400 rounded-bl px-1">{numbers.join('')}</span>
 <File bind:this={file}/>
-<div class:pb-16={keyboard}>
+<div id="sheet" class:pb-16={keyboard}>
   <Sheet bind:this={sheet}/>
 </div>
 {#if keyboard}
-<div class="fixed bottom-0 w-screen flex justify-center">
+<div id="keyboard" class="fixed bottom-0 w-screen flex justify-center">
   <Keyboard/>
 </div>
 {/if}
