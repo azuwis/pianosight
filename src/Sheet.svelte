@@ -112,7 +112,7 @@ $: if ($playMatch > 0) {
   goToNextNote()
 }
 
-onMount(async() => {
+onMount(() => {
   osmd = new opensheetmusicdisplay.OpenSheetMusicDisplay(sheet, {
     followCursor: true
   })
