@@ -4,7 +4,7 @@ import opensheetmusicdisplay from 'opensheetmusicdisplay'
 import { sheetMusic, sheetNotes, stavesToCheck, playMatch } from './stores.js'
 
 let osmd
-let container
+let sheet
 let firstMeasure = 0
 let lastMeasure = 0
 
@@ -113,7 +113,7 @@ $: if ($playMatch > 0) {
 }
 
 onMount(async() => {
-  osmd = new opensheetmusicdisplay.OpenSheetMusicDisplay(container, {
+  osmd = new opensheetmusicdisplay.OpenSheetMusicDisplay(sheet, {
     followCursor: true
   })
   onDestroy(sheetMusic.subscribe(sheet => {
@@ -128,4 +128,4 @@ onMount(async() => {
 })
 </script>
 
-<div bind:this={container}></div>
+<div bind:this={sheet}></div>
