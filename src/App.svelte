@@ -53,7 +53,7 @@ function handleKeydown(event) {
       break
     case 'g':
       if (numbers.length > 0) {
-        sheet.goToMeasure(parseInt(numbers.join('')))
+        sheet.goToMeasure(numbers.reduce((acc, cur) => acc * 10 + cur))
         numbers = []
       }
       break
