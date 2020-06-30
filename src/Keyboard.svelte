@@ -21,6 +21,10 @@ const dimensions = totalDimensions(options).map(
 )
 
 const text = getTextElements(keys[39]).text
+// const text = Object.assign({},
+//   ...Object.entries(getTextElements(keys[39]).text).map(([k, v]) =>
+//   ({[k.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase()]: v})
+// ))
 
 function handleClick(key, index) {
 }
@@ -42,4 +46,5 @@ $: keys = keys.map(key =>
       style={`fill:${key.fill};stroke:${key.stroke};stroke-width:${key.strokeWidth}`}/>
   {/each}
   <text x={text.x} y={text.y} text-anchor={text.textAnchor} font-size={text.fontSize * 3} font-family={text.fontFamily} fill="#39383D">C</text>
+  <!-- <text {...text} fill="#39383D">C</text> -->
 </svg>
