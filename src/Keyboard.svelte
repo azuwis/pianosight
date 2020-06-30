@@ -8,7 +8,7 @@ import {
   getTextElements
 } from 'svg-piano'
 
-let options = defaultOptions({
+const options = defaultOptions({
   upperHeight: 60,
   range: ['A0', 'C8']
 })

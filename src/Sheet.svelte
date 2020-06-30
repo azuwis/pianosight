@@ -53,7 +53,7 @@ export function goToMeasure(measure) {
     return
   }
   osmd.cursor.reset()
-  let currentMeasure = getCurrentMeasure()
+  const currentMeasure = getCurrentMeasure()
   while (currentMeasure >= 0 && currentMeasure < measure) {
     osmd.cursor.next()
     currentMeasure = getCurrentMeasure()
