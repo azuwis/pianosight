@@ -1,4 +1,10 @@
 const svite = require('svite');
 module.exports = {
-  plugins: [svite()],
+  plugins: [svite(
+    {
+      hot: {
+        noPreserveState: false
+      }
+    }
+  )],
 };
