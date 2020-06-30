@@ -49,7 +49,7 @@ function handleKeydown(event) {
     case '7':
     case '8':
     case '9':
-      numbers.push(parseInt(event.key))
+      numbers = [...numbers, parseInt(event.key)]
       break
     case 'g':
       if (numbers.length > 0) {
@@ -67,6 +67,7 @@ function handleKeydown(event) {
 </script>
 
 <svelte:window on:keydown={handleKeydown}/>
+<span class="fixed right-0 bg-gray-400 rounded-bl px-1">{numbers.join('')}</span>
 <File bind:this={file}/>
 <div class:pb-16={keyboard}>
   <Sheet bind:this={sheet}/>
