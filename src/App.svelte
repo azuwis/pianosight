@@ -1,14 +1,17 @@
 <script>
-import { stavesToCheck } from './stores.js'
+import { stavesToCheck, notification } from './stores.js'
 import Sheet from './Sheet.svelte'
 import Keyboard from './Keyboard.svelte'
 import Midi from './Midi.svelte'
 import File from './File.svelte'
+import Notification from './Notification.svelte'
 
 let numbers = []
 let sheet
 let file
 let keyboard = true
+
+$: $notification = numbers.join('')
 
 function handleKeydown(event) {
   switch(event.key) {
@@ -66,11 +69,10 @@ function handleKeydown(event) {
       break
   }
 }
-
 </script>
 
 <svelte:window on:keydown={handleKeydown}/>
-<span id="numbers" class="fixed right-0 bg-gray-400 rounded-bl px-1">{numbers.join('')}</span>
+<Notification/>
 <File bind:this={file}/>
 <div id="sheet" class:pb-16={keyboard}>
   <Sheet bind:this={sheet}/>
