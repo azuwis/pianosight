@@ -1,5 +1,5 @@
 <script>
-import { stavesToCheck, notification } from './stores.js'
+import { showSheetNotes, stavesToCheck, notification } from './stores.js'
 import Sheet from './Sheet.svelte'
 import Keyboard from './Keyboard.svelte'
 import Midi from './Midi.svelte'
@@ -41,6 +41,9 @@ function handleKeydown(event) {
       break
     case 'o':
       file.open()
+      break
+    case 'i':
+      $showSheetNotes = !$showSheetNotes
       break
     case '0':
     case '1':

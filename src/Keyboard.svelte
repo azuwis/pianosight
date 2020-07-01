@@ -1,5 +1,10 @@
 <script>
-import { sheetNotes, playNotes, checkPlayNotes } from './stores.js'
+import {
+  sheetNotes,
+  showSheetNotes,
+  playNotes,
+  checkPlayNotes
+} from './stores.js'
 import {
   renderKeys,
   totalDimensions,
@@ -8,13 +13,15 @@ import {
   getTextElements
 } from 'svg-piano'
 
+const mobile = navigator.userAgent.match(/(Mobile)/)
 const options = defaultOptions({
   upperHeight: 60,
   range: ['A0', 'C8']
 })
 
-let keys = renderKeys(options)
-keys = keys.map(key => ({...key, defaultFill: key.fill}))
+let keys = renderKeys(options).map(key => ({...key, defaultFill: key.fill}))
+
+$showSheetNotes = !mobile
 
 const dimensions = totalDimensions(options).map(
   v => Math.round(v) + options.strokeWidth * 2
@@ -42,7 +49,7 @@ let handleMouseup = () => {}
 let handleTouchstart = () => {}
 let handleTouchend = () => {}
 
-if (navigator.userAgent.match(/(Mobile)/)) {
+if (mobile) {
   handleTouchstart = keyOn
   handleTouchend = keyOff
 } else {
@@ -53,7 +60,7 @@ if (navigator.userAgent.match(/(Mobile)/)) {
 $: keys = keys.map(key => {
   const halfTone = key.index
   let fill = key.defaultFill
-  if ($sheetNotes.includes(halfTone)) {
+  if ($showSheetNotes && $sheetNotes.includes(halfTone)) {
     fill = 'purple'
   }
   if ($playNotes.has(halfTone)) {
