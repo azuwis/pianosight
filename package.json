@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "vite build"
+    "build": "vite build",
+    "lint": "eslint src/*.js src/*.svelte"
   },
   "dependencies": {
     "opensheetmusicdisplay": "^0.8.2",
@@ -12,6 +13,8 @@
     "webmidi": "^2.5.1"
   },
   "devDependencies": {
+    "eslint": "^7.3.1",
+    "eslint-plugin-svelte3": "^2.7.3",
     "postcss-import": "^12.0.1",
     "postcss-load-config": "^2.1.0",
     "postcss-preset-env": "^6.7.0",
