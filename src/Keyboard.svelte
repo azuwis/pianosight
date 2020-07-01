@@ -30,7 +30,7 @@ function handleClick(key, index) {
 }
 
 $: keys = keys.map(key => {
-  const halfTone = key.index + 12
+  const halfTone = key.index
   let fill = key.defaultFill
   if ($sheetNotes.includes(halfTone)) {
     fill = 'purple'

@@ -29,7 +29,7 @@ function updateSheetNotes() {
   $sheetNotes = osmd.cursor.NotesUnderCursor()
     .filter(n => n.halfTone > 0 &&
       ($stavesToCheck.size === 0 || $stavesToCheck.has(n.ParentStaff.Id)))
-    .map(n => n.halfTone + 12)
+    .map(n => n.halfTone)
 }
 
 export function goToNextNote() {
