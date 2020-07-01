@@ -1,7 +1,7 @@
 <script>
 import { onDestroy } from 'svelte'
 import WebMidi from 'webmidi'
-import { sheetNotes, playNotes, checkPlayNotes } from './stores.js'
+import { playNotes, checkPlayNotes } from './stores.js'
 
 WebMidi.enable((err) => {
   if (err) {
