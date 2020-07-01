@@ -1,5 +1,5 @@
 <script>
-import { sheetNotes, playNotes } from './stores.js'
+import { sheetNotes, playNotes, checkPlayNotes } from './stores.js'
 import {
   renderKeys,
   totalDimensions,
@@ -26,7 +26,28 @@ const text = getTextElements(keys[39]).text
 //   ({[k.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase()]: v})
 // ))
 
-function handleClick(key, index) {
+function keyOn(key) {
+  $playNotes.add(key.index)
+  $playNotes = $playNotes
+  checkPlayNotes()
+}
+
+function keyOff(key) {
+  $playNotes.delete(key.index)
+  $playNotes = $playNotes
+}
+
+let handleMousedown = () => {}
+let handleMouseup = () => {}
+let handleTouchstart = () => {}
+let handleTouchend = () => {}
+
+if (navigator.userAgent.match(/(Mobile)/)) {
+  handleTouchstart = keyOn
+  handleTouchend = keyOff
+} else {
+  handleMousedown = keyOn
+  handleMouseup = keyOff
 }
 
 $: keys = keys.map(key => {
@@ -43,9 +64,12 @@ $: keys = keys.map(key => {
 </script>
 
 <svg width={dimensions[0]} height={dimensions[1]} style="margin:0">
-  {#each keys as key, index}
+  {#each keys as key, index (key.index)}
     <polygon
-      on:click={() => handleClick(key, index)}
+      on:mousedown={() => handleMousedown(key)}
+      on:mouseup={() => handleMouseup(key)}
+      on:touchstart={() => handleTouchstart(key)}
+      on:touchend={() => handleTouchend(key)}
       points={getPoints(key)
         .map(p => p.join(','))
         .join(' ')}
