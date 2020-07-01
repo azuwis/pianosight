@@ -1,14 +1,14 @@
 <script>
 import { onDestroy } from 'svelte'
 import WebMidi from 'webmidi'
-import { sheetNotes, playMatch } from './stores.js'
+import { sheetNotes, playNotes, playMatch } from './stores.js'
 
-let playNotes = new Set()
+let notes = new Set()
 
 function checkPlayNotes() {
   if ($sheetNotes.length !== 0 &&
-      $sheetNotes.length <= playNotes.size &&
-      $sheetNotes.every(value => playNotes.has(value))) {
+      $sheetNotes.length <= notes.size &&
+      $sheetNotes.every(value => notes.has(value))) {
     $playMatch++
   }
 }
@@ -20,12 +20,13 @@ WebMidi.enable((err) => {
   }
   const input = WebMidi.inputs[1]
   input.addListener('noteon', 'all', event => {
-    playNotes.add(event.note.number)
+    notes.add(event.note.number)
+    $playNotes = notes
     checkPlayNotes()
   })
   input.addListener('noteoff', 'all', event => {
-    playNotes.delete(event.note.number)
-    checkPlayNotes()
+    notes.delete(event.note.number)
+    $playNotes = notes
   })
 })
 
