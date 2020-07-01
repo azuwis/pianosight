@@ -1,4 +1,5 @@
 <script>
+import { onMount } from 'svelte'
 import {
   sheetNotes,
   showSheetNotes,
@@ -12,6 +13,8 @@ import {
   getPoints,
   getTextElements
 } from 'svg-piano'
+
+let container
 
 const mobile = navigator.userAgent.match(/(Mobile)/)
 const options = defaultOptions({
@@ -68,20 +71,29 @@ $: keys = keys.map(key => {
   }
   return {...key, fill}
 })
+
+function scrollToCenter() {
+  container.scrollTo((dimensions[0] - container.clientWidth) / 2, 0)
+}
+
+onMount(scrollToCenter)
 </script>
 
-<svg width={dimensions[0]} height={dimensions[1]} style="margin:0">
-  {#each keys as key, index (key.index)}
-    <polygon
-      on:mousedown={() => handleMousedown(key)}
-      on:mouseup={() => handleMouseup(key)}
-      on:touchstart={() => handleTouchstart(key)}
-      on:touchend={() => handleTouchend(key)}
-      points={getPoints(key)
-        .map(p => p.join(','))
-        .join(' ')}
-      style={`fill:${key.fill};stroke:${key.stroke};stroke-width:${key.strokeWidth}`}/>
-  {/each}
-  <text x={text.x} y={text.y} text-anchor={text.textAnchor} font-size={text.fontSize * 3} font-family={text.fontFamily} fill="#39383D">C</text>
-  <!-- <text {...text} fill="#39383D">C</text> -->
-</svg>
+<svelte:window on:resize={scrollToCenter}/>
+<div bind:this={container} id="keyboard" class="fixed bottom-0 w-screen flex flex-col overflow-x-auto">
+  <svg width={dimensions[0]} height={dimensions[1]} class="m-auto">
+    {#each keys as key, index (key.index)}
+      <polygon
+        on:mousedown={() => handleMousedown(key)}
+        on:mouseup={() => handleMouseup(key)}
+        on:touchstart={() => handleTouchstart(key)}
+        on:touchend={() => handleTouchend(key)}
+        points={getPoints(key)
+          .map(p => p.join(','))
+          .join(' ')}
+        style={`fill:${key.fill};stroke:${key.stroke};stroke-width:${key.strokeWidth}`}/>
+    {/each}
+    <text x={text.x} y={text.y} text-anchor={text.textAnchor} font-size={text.fontSize * 3} font-family={text.fontFamily} fill="#39383D">C</text>
+    <!-- <text {...text} fill="#39383D">C</text> -->
+  </svg>
+</div>

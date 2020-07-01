@@ -81,8 +81,6 @@ function handleKeydown(event) {
   <Sheet bind:this={sheet}/>
 </div>
 {#if keyboard}
-<div id="keyboard" class="fixed bottom-0 w-screen flex justify-center">
-  <Keyboard/>
-</div>
+<Keyboard/>
 {/if}
 <Midi/>
