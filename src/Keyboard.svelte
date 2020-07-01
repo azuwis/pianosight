@@ -1,5 +1,5 @@
 <script>
-import { sheetNotes } from './stores.js'
+import { sheetNotes, playNotes } from './stores.js'
 import {
   renderKeys,
   totalDimensions,
@@ -29,11 +29,17 @@ const text = getTextElements(keys[39]).text
 function handleClick(key, index) {
 }
 
-$: keys = keys.map(key =>
-    $sheetNotes.includes(key.index + 12) ?
-      {...key, fill: 'purple'} :
-      {...key, fill: key.defaultFill}
-)
+$: keys = keys.map(key => {
+  const halfTone = key.index + 12
+  let fill = key.defaultFill
+  if ($sheetNotes.includes(halfTone)) {
+    fill = 'purple'
+  }
+  if ($playNotes.has(halfTone)) {
+    fill = 'orange'
+  }
+  return {...key, fill}
+})
 </script>
 
 <svg width={dimensions[0]} height={dimensions[1]} style="margin:0">
