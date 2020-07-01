@@ -1,7 +1,13 @@
 <script>
 import { onMount, onDestroy } from 'svelte'
 import opensheetmusicdisplay from 'opensheetmusicdisplay'
-import { sheetMusic, sheetNotes, stavesToCheck, playMatch } from './stores.js'
+import {
+  sheetMusic,
+  sheetNotes,
+  stavesToCheck,
+  playMatch,
+  notification
+} from './stores.js'
 
 let osmd
 let sheet
@@ -9,9 +15,11 @@ let firstMeasure = 0
 let lastMeasure = 0
 
 async function loadSheet(sheet) {
+  $notification = 'loading...'
   await osmd.load(sheet)
   osmd.render()
   osmd.cursor.show()
+  $notification = ''
   firstMeasure = getCurrentMeasure()
   lastMeasure = osmd.Sheet.SourceMeasures.length + firstMeasure - 1
   updateSheetNotes()
