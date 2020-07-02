@@ -156,4 +156,4 @@ onMount(() => {
 })
 </script>
 
-<div bind:this={sheet} id="sheet" class:pb-16={$showKeyboard}></div>
+<div bind:this={sheet} id="sheet" class:mb-16={$showKeyboard}></div>
