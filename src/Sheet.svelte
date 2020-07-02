@@ -44,6 +44,10 @@ function scrollIntoView() {
 }
 
 export function goToNextNote() {
+  if (osmd.cursor.Iterator.EndReached) {
+    goToFirstMeasure()
+    return
+  }
   osmd.cursor.next()
   scrollIntoView()
   updateSheetNotes()
