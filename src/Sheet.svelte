@@ -4,6 +4,7 @@ import opensheetmusicdisplay from 'opensheetmusicdisplay'
 import {
   sheetMusic,
   sheetNotes,
+  showKeyboard,
   stavesToCheck,
   playMatch,
   notification
@@ -155,4 +156,4 @@ onMount(() => {
 })
 </script>
 
-<div bind:this={sheet}></div>
+<div bind:this={sheet} id="sheet" class:pb-16={$showKeyboard}></div>

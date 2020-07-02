@@ -1,5 +1,4 @@
 <script>
-import { showKeyboard } from './stores.js'
 import Sheet from './Sheet.svelte'
 import Keyboard from './Keyboard.svelte'
 import Midi from './Midi.svelte'
@@ -12,9 +11,7 @@ let file
 </script>
 
 <File bind:this={file}/>
-<div id="sheet" class:pb-16={$showKeyboard}>
-  <Sheet bind:this={sheet}/>
-</div>
+<Sheet bind:this={sheet}/>
 <Keyboard/>
 <Midi/>
 <Notification/>
