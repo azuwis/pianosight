@@ -5,6 +5,7 @@ import {
   sheetMusic,
   sheetNotes,
   showKeyboard,
+  showKeyboardControl,
   stavesToCheck,
   playNotes,
   playMatch,
@@ -53,23 +54,23 @@ export function goToNextNote() {
   }
   osmd.cursor.next()
   if (osmd.cursor.Iterator.EndReached) {
-    $notification = 'play C to repeat'
+    $showKeyboardControl = true
     const unsub = playNotes.subscribe(notes => {
       if (notes.size === 1) {
-        if (notes.has(48)) {
+        if (notes.has(53)) {
           file.goTo(-1)
           reset()
-        } else if (notes.has(50)) {
+        } else if (notes.has(55)) {
           goToFirstMeasure()
           reset()
-        } else if (notes.has(52)) {
+        } else if (notes.has(57)) {
           file.goTo(1)
           reset()
         }
       }
     })
     function reset() {
-      $notification = ''
+      $showKeyboardControl = false
       unsub()
     }
     setTimeout(reset, 5000)
@@ -80,6 +81,9 @@ export function goToNextNote() {
 }
 
 function getCurrentMeasure() {
+  if (osmd.cursor.Iterator.EndReached) {
+    return lastMeasure
+  }
   const currentMeasure = osmd.cursor
     .VoicesUnderCursor()[0].ParentSourceStaffEntry
     .VerticalContainerParent.ParentMeasure

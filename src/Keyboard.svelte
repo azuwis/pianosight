@@ -4,6 +4,7 @@ import {
   sheetNotes,
   showSheetNotes,
   showKeyboard,
+  showKeyboardControl,
   playNotes,
   checkPlayNotes
 } from './stores.js'
@@ -33,11 +34,23 @@ const dimensions = totalDimensions(options).map(
   v => Math.round(v) + options.strokeWidth * 2
 )
 
-const text = getTextElements(keys[39]).text
-// const text = Object.assign({},
-//   ...Object.entries(getTextElements(keys[39]).text).map(([k, v]) =>
-//   ({[k.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase()]: v})
-// ))
+function makeKeyText(index) {
+  const text = getTextElements(keys[index]).text
+  return {
+    x: text.x,
+    y: text.y,
+    'text-anchor': text.textAnchor,
+    'font-size': text.fontSize * 3,
+    'font-family': text.fontFamily,
+    fill: '#39383D',
+    'class': 'pointer-events-none'
+  }
+}
+
+const textC = makeKeyText(39)
+const textPrevious = makeKeyText(44)
+const textUp = makeKeyText(46)
+const textNext = makeKeyText(48)
 
 function keyOn(key) {
   $playNotes.add(key.index)
@@ -97,8 +110,12 @@ onMount(scrollToCenter)
           .join(' ')}
         style={`fill:${key.fill};stroke:${key.stroke};stroke-width:${key.strokeWidth}`}/>
     {/each}
-    <text x={text.x} y={text.y} text-anchor={text.textAnchor} font-size={text.fontSize * 3} font-family={text.fontFamily} fill="#39383D" class="pointer-events-none">C</text>
-    <!-- <text {...text} fill="#39383D">C</text> -->
+    <text {...textC}>C</text>
+    {#if $showKeyboardControl}
+    <text {...textPrevious}>⇐</text>
+    <text {...textUp}>⇑</text>
+    <text {...textNext}>⇒</text>
+    {/if}
   </svg>
   {/if}
 </div>
