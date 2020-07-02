@@ -97,7 +97,7 @@ onMount(scrollToCenter)
           .join(' ')}
         style={`fill:${key.fill};stroke:${key.stroke};stroke-width:${key.strokeWidth}`}/>
     {/each}
-    <text x={text.x} y={text.y} text-anchor={text.textAnchor} font-size={text.fontSize * 3} font-family={text.fontFamily} fill="#39383D">C</text>
+    <text x={text.x} y={text.y} text-anchor={text.textAnchor} font-size={text.fontSize * 3} font-family={text.fontFamily} fill="#39383D" class="pointer-events-none">C</text>
     <!-- <text {...text} fill="#39383D">C</text> -->
   </svg>
   {/if}
