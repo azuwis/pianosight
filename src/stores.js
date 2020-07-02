@@ -3,6 +3,7 @@ import { get, writable } from 'svelte/store'
 export const sheetMusic = writable('easy.xml')
 export const sheetNotes = writable([])
 export const showSheetNotes = writable(true)
+export const showKeyboard = writable(true)
 export const stavesToCheck = writable(new Set())
 export const playNotes = writable(new Set())
 export const playMatch = writable(0)

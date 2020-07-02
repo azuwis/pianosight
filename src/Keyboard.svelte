@@ -3,6 +3,7 @@ import { onMount } from 'svelte'
 import {
   sheetNotes,
   showSheetNotes,
+  showKeyboard,
   playNotes,
   checkPlayNotes
 } from './stores.js'
@@ -83,6 +84,7 @@ onMount(scrollToCenter)
 
 <svelte:window on:resize={scrollToCenter}/>
 <div bind:this={container} id="keyboard" class="fixed bottom-0 w-screen flex flex-col overflow-x-auto">
+  {#if $showKeyboard}
   <svg width={dimensions[0]} height={dimensions[1]} class="m-auto">
     {#each keys as key, index (key.index)}
       <polygon
@@ -98,6 +100,7 @@ onMount(scrollToCenter)
     <text x={text.x} y={text.y} text-anchor={text.textAnchor} font-size={text.fontSize * 3} font-family={text.fontFamily} fill="#39383D">C</text>
     <!-- <text {...text} fill="#39383D">C</text> -->
   </svg>
+  {/if}
 </div>
 
 <style>

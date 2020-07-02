@@ -1,5 +1,10 @@
 <script>
-import { showSheetNotes, stavesToCheck, notification } from './stores.js'
+import {
+  showSheetNotes,
+  showKeyboard,
+  stavesToCheck,
+  notification
+} from './stores.js'
 
 export let file
 export let sheet
@@ -31,7 +36,7 @@ function handleKeydown(event) {
       sheet.goToLastMeasure()
       break
     case 'p':
-      keyboard = !keyboard
+      $showKeyboard = !$showKeyboard
       break
     case 'o':
       file.open()
