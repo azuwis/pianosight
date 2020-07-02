@@ -7,7 +7,7 @@ const builtinFiles = [
   'hard.xml'
 ]
 let customFiles = []
-let select = ['easy.xml']
+let select = 'easy.xml'
 
 export function open() {
   inputFile.click()
@@ -36,7 +36,7 @@ function showCustomFiles(files) {
     return
   }
   customFiles = files
-  select = [customFiles[0]]
+  select = customFiles[0]
 }
 
 function handleChange(event) {
@@ -52,25 +52,27 @@ function handleDrop(event) {
   showCustomFiles(dataTransfer.files)
 }
 
-$: if (select.length > 0) {
-  readFile(select[0])
-}
+$: readFile(select)
 
 </script>
 
 <svelte:window on:drop|preventDefault={handleDrop} on:dragover|preventDefault/>
 <input multiple bind:this={inputFile} on:change={handleChange} type="file" accept=".xml,.mxl,.musicxml" class="hidden">
-<select multiple bind:value={select}>
+<select bind:value={select}>
+  <optgroup label="Builtin">
   {#each builtinFiles as file}
     <option value={file}>
       {file}
     </option>
   {/each}
-</select>
-<select multiple bind:value={select} class:hidden={customFiles.length === 0}>
+  </optgroup>
+  {#if customFiles.length > 0}
+  <optgroup label="Custom">
   {#each customFiles as file}
     <option value={file}>
       {file.name}
     </option>
   {/each}
+  </optgroup>
+  {/if}
 </select>
