@@ -83,7 +83,7 @@ onMount(scrollToCenter)
 </script>
 
 <svelte:window on:resize={scrollToCenter}/>
-<div bind:this={container} id="keyboard" class="fixed bottom-0 w-screen flex flex-col overflow-x-auto">
+<div bind:this={container} class="keyboard fixed bottom-0 w-screen flex flex-col overflow-x-auto">
   {#if $showKeyboard}
   <svg width={dimensions[0]} height={dimensions[1]} class="m-auto">
     {#each keys as key, index (key.index)}
@@ -104,7 +104,7 @@ onMount(scrollToCenter)
 </div>
 
 <style>
-#keyboard {
+.keyboard {
   margin-bottom: -1px;
 }
 </style>
