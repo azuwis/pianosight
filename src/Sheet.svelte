@@ -136,6 +136,7 @@ $: if ($playMatch > 0) {
 
 onMount(() => {
   osmd = new opensheetmusicdisplay.OpenSheetMusicDisplay(sheet, {
+    autoResize: false,
     followCursor: false
   })
   onDestroy(sheetMusic.subscribe(sheet => {
