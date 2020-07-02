@@ -54,6 +54,7 @@ export function goToNextNote() {
   }
   osmd.cursor.next()
   if (osmd.cursor.Iterator.EndReached) {
+    $sheetNotes = []
     $showKeyboardControl = true
     const unsub = playNotes.subscribe(notes => {
       if (notes.size === 1) {
