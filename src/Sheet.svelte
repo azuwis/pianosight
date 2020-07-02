@@ -17,6 +17,7 @@ let lastMeasure = 0
 async function loadSheet(sheet) {
   $notification = 'loading...'
   await osmd.load(sheet)
+  osmd.zoom = 1
   osmd.render()
   osmd.cursor.show()
   $notification = ''
