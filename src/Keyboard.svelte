@@ -18,7 +18,9 @@ let container
 
 const mobile = navigator.userAgent.match(/(Mobile)/)
 const options = defaultOptions({
-  upperHeight: 60,
+  scaleX: 1.2,
+  scaleY: 1.2,
+  upperHeight: 50,
   range: ['A0', 'C8']
 })
 
