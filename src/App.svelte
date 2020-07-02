@@ -11,7 +11,7 @@ let file
 </script>
 
 <File bind:this={file}/>
-<Sheet bind:this={sheet}/>
+<Sheet {file} bind:this={sheet}/>
 <Keyboard/>
 <Midi/>
 <Notification/>

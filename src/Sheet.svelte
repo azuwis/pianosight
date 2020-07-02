@@ -6,9 +6,12 @@ import {
   sheetNotes,
   showKeyboard,
   stavesToCheck,
+  playNotes,
   playMatch,
   notification
 } from './stores.js'
+
+export let file
 
 let osmd
 let sheet
@@ -46,10 +49,32 @@ function scrollIntoView() {
 
 export function goToNextNote() {
   if (osmd.cursor.Iterator.EndReached) {
-    goToFirstMeasure()
     return
   }
   osmd.cursor.next()
+  if (osmd.cursor.Iterator.EndReached) {
+    $notification = 'play C to repeat'
+    const unsub = playNotes.subscribe(notes => {
+      if (notes.size === 1) {
+        if (notes.has(48)) {
+          file.goTo(-1)
+          reset()
+        } else if (notes.has(50)) {
+          goToFirstMeasure()
+          reset()
+        } else if (notes.has(52)) {
+          file.goTo(1)
+          reset()
+        }
+      }
+    })
+    function reset() {
+      $notification = ''
+      unsub()
+    }
+    setTimeout(reset, 5000)
+    return
+  }
   scrollIntoView()
   updateSheetNotes()
 }
