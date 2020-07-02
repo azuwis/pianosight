@@ -41,6 +41,12 @@ function handleKeydown(event) {
     case 'o':
       file.open()
       break
+    case 'w':
+      file.goTo(1)
+      break
+    case 'q':
+      file.goTo(-1)
+      break
     case 'i':
       $showSheetNotes = !$showSheetNotes
       break

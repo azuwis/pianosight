@@ -13,6 +13,18 @@ export function open() {
   inputFile.click()
 }
 
+export function goTo() {
+  let index = builtinFiles.indexOf(select)
+  if (index >= 0) {
+    select = builtinFiles[(index + 1) % builtinFiles.length]
+  } else {
+    index = customFiles.indexOf(select)
+    if (index >= 0) {
+      select = customFiles[(index + 1) % customFiles.length]
+    }
+  }
+}
+
 function readFile(file) {
   const type = typeof(file)
   if (type === 'string') {
@@ -35,7 +47,7 @@ function showCustomFiles(files) {
   if (!files || files.length === 0) {
     return
   }
-  customFiles = files
+  customFiles = Array.from(files)
   select = customFiles[0]
 }
 
