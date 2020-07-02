@@ -97,3 +97,9 @@ onMount(scrollToCenter)
     <!-- <text {...text} fill="#39383D">C</text> -->
   </svg>
 </div>
+
+<style>
+#keyboard {
+  margin-bottom: -1px;
+}
+</style>
