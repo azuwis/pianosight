@@ -32,8 +32,19 @@ function updateSheetNotes() {
     .map(n => n.halfTone)
 }
 
+function scrollIntoView() {
+  const cursorElement = osmd.cursor.cursorElement
+  const diff = cursorElement.getBoundingClientRect().top
+  const top = diff + window.pageYOffset - 60
+  window.scrollTo({
+    behavior: diff > -1000 && diff < 1000 ? 'smooth' : 'auto',
+    top
+  })
+}
+
 export function goToNextNote() {
   osmd.cursor.next()
+  scrollIntoView()
   updateSheetNotes()
 }
 
@@ -66,6 +77,7 @@ export function goToMeasure(measure) {
     osmd.cursor.next()
     currentMeasure = getCurrentMeasure()
   }
+  scrollIntoView()
   updateSheetNotes()
 }
 
@@ -79,6 +91,7 @@ export function goToNextMeasure() {
 
 export function goToFirstMeasure() {
   osmd.cursor.reset()
+  scrollIntoView()
   updateSheetNotes()
 }
 
@@ -122,7 +135,7 @@ $: if ($playMatch > 0) {
 
 onMount(() => {
   osmd = new opensheetmusicdisplay.OpenSheetMusicDisplay(sheet, {
-    followCursor: true
+    followCursor: false
   })
   onDestroy(sheetMusic.subscribe(sheet => {
     loadSheet(sheet)
