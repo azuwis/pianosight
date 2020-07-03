@@ -55,26 +55,40 @@ export function goToNextNote() {
   osmd.cursor.next()
   if (osmd.cursor.Iterator.EndReached) {
     $sheetNotes = []
-    $showKeyboardControl = true
-    const unsub = playNotes.subscribe(notes => {
-      if (notes.size === 1) {
-        if (notes.has(53)) {
-          file.goTo(-1)
-          reset()
-        } else if (notes.has(55)) {
-          goToFirstMeasure()
-          reset()
-        } else if (notes.has(57)) {
-          file.goTo(1)
-          reset()
-        }
-      }
-    })
     function reset() {
       $showKeyboardControl = false
       unsub()
     }
-    setTimeout(reset, 5000)
+    let enabled = false
+    let callCount = 0
+    const unsub = playNotes.subscribe(notes => {
+      if (enabled) {
+        callCount++
+        if (callCount > 10) {
+          reset()
+          return
+        }
+        if (notes.size === 1) {
+          if (notes.has(48)) { // C
+            reset()
+          } else if (notes.has(53)) { // F
+            file.goTo(-1)
+            reset()
+          } else if (notes.has(55)) { // G
+            goToFirstMeasure()
+            reset()
+          } else if (notes.has(57)) { // A
+            file.goTo(1)
+            reset()
+          }
+        }
+      } else {
+        if (notes.size === 0) {
+          enabled = true
+          $showKeyboardControl = true
+        }
+      }
+    })
     return
   }
   scrollIntoView()
