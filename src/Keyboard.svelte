@@ -54,8 +54,8 @@ const textNext = makeKeyText(48)
 
 function keyOn(key) {
   $playNotes.add(key.index)
-  $playNotes = $playNotes
   checkPlayNotes()
+  $playNotes = $playNotes
 }
 
 function keyOff(key) {

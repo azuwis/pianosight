@@ -11,8 +11,8 @@ WebMidi.enable((err) => {
   const input = WebMidi.inputs[1]
   input.addListener('noteon', 'all', event => {
     $playNotes.add(event.note.number - 12)
-    $playNotes = $playNotes
     checkPlayNotes()
+    $playNotes = $playNotes
   })
   input.addListener('noteoff', 'all', event => {
     $playNotes.delete(event.note.number - 12)
