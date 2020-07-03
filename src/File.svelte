@@ -7,7 +7,7 @@ const builtinFiles = [
   'hard.xml'
 ]
 let customFiles = []
-let select = 'easy.xml'
+let select = builtinFiles[0]
 
 export function open() {
   inputFile.click()
