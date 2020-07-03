@@ -55,7 +55,7 @@ export function goToNextNote() {
   osmd.cursor.next()
   if (osmd.cursor.Iterator.EndReached) {
     $sheetNotes = []
-    function reset() {
+    const reset = () => {
       $showKeyboardControl = false
       unsub()
     }
