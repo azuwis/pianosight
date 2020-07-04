@@ -1,5 +1,4 @@
 <script>
-import { onMount } from 'svelte'
 import {
   sheetNotes,
   showSheetNotes,
@@ -88,27 +87,25 @@ $: keys = keys.map(key => {
   return {...key, fill}
 })
 
-function scrollToCenter() {
-  container.scrollTo((dimensions[0] - container.clientWidth) / 2, 0)
+function scrollToCenter(element) {
+  element.scrollTo((dimensions[0] - element.clientWidth) / 2, 0)
 }
-
-onMount(scrollToCenter)
 </script>
 
-<svelte:window on:resize={scrollToCenter}/>
-<div bind:this={container} class="keyboard fixed bottom-0 w-screen flex flex-col overflow-x-auto">
-  {#if $showKeyboard}
+<svelte:window on:resize={() => scrollToCenter(container)}/>
+{#if $showKeyboard}
+<div bind:this={container} use:scrollToCenter class="keyboard fixed bottom-0 w-screen flex flex-col overflow-x-auto">
   <svg width={dimensions[0]} height={dimensions[1]} class="m-auto">
     {#each keys as key, index (key.index)}
-      <polygon
-        on:mousedown={() => handleMousedown(key)}
-        on:mouseup={() => handleMouseup(key)}
-        on:touchstart={() => handleTouchstart(key)}
-        on:touchend={() => handleTouchend(key)}
-        points={getPoints(key)
-          .map(p => p.join(','))
-          .join(' ')}
-        style={`fill:${key.fill};stroke:${key.stroke};stroke-width:${key.strokeWidth}`}/>
+    <polygon
+      on:mousedown={() => handleMousedown(key)}
+      on:mouseup={() => handleMouseup(key)}
+      on:touchstart={() => handleTouchstart(key)}
+      on:touchend={() => handleTouchend(key)}
+      points={getPoints(key)
+        .map(p => p.join(','))
+        .join(' ')}
+      style={`fill:${key.fill};stroke:${key.stroke};stroke-width:${key.strokeWidth}`}/>
     {/each}
     <text {...textC}>C</text>
     {#if $showKeyboardControl}
@@ -117,8 +114,8 @@ onMount(scrollToCenter)
     <text {...textNext}>⇒</text>
     {/if}
   </svg>
-  {/if}
 </div>
+{/if}
 
 <style>
 .keyboard {
