@@ -25,8 +25,18 @@ module.exports = {
     }
   },
   theme: {
-    extend: {},
+    customForms: theme => ({
+      default: {
+        select: {
+          '&:focus': {
+            boxShadow: undefined,
+            borderColor: undefined
+          }
+        }
+      }
+    }),
+    extend: {}
   },
   variants: {},
-  plugins: [],
+  plugins: [require('@tailwindcss/custom-forms')]
 };
