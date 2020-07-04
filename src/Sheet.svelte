@@ -18,6 +18,9 @@ let osmd
 let sheet
 let firstMeasure = 0
 let lastMeasure = 0
+let unsubPlayNotes = () => {}
+
+$playMatch = 0
 
 async function loadSheet(sheet) {
   $notification = 'loading...'
@@ -58,11 +61,11 @@ export function goToNextNote() {
     osmd.cursor.hide()
     const reset = () => {
       $showKeyboardControl = false
-      unsub()
+      unsubPlayNotes()
     }
     let enabled = false
     let callCount = 0
-    const unsub = playNotes.subscribe(notes => {
+    unsubPlayNotes = playNotes.subscribe(notes => {
       if (enabled) {
         callCount++
         if (callCount > 10) {
@@ -199,8 +202,9 @@ onMount(() => {
       updateSheetNotes()
     }
   }))
-  $playMatch = 0
 })
+
+onDestroy(unsubPlayNotes)
 </script>
 
 <div bind:this={sheet} class:mb-16={$showKeyboard}></div>
