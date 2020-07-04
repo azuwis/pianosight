@@ -39,6 +39,9 @@ function updateSheetNotes() {
     .filter(n => n.halfTone > 0 &&
       ($stavesToCheck.size === 0 || $stavesToCheck.has(n.ParentStaff.Id)))
     .map(n => n.halfTone)
+  if ($sheetNotes.length === 0) {
+    goToNextNote()
+  }
 }
 
 function scrollIntoView() {
