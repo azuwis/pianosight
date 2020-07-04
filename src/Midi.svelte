@@ -90,7 +90,7 @@ onDestroy(() => {
 </script>
 
 <!-- svelte-ignore a11y-no-onchange -->
-<select bind:value={selectedInput} on:change={onChange}>
+<select bind:value={selectedInput} on:change={onChange} class="form-select">
   <option value="all">
     All
   </option>
