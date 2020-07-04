@@ -207,7 +207,9 @@ onMount(() => {
   }))
 })
 
-onDestroy(unsubPlayNotes)
+onDestroy(() => {
+  unsubPlayNotes()
+})
 </script>
 
 <div bind:this={sheet} class:mb-16={$showKeyboard}></div>
