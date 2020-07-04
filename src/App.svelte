@@ -11,8 +11,8 @@ let file
 </script>
 
 <File bind:this={file}/>
+<Midi/>
 <Sheet {file} bind:this={sheet}/>
 <Keyboard/>
-<Midi/>
 <Notification/>
 <Shortcut {...{file, sheet}}/>
