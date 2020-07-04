@@ -55,6 +55,7 @@ export function goToNextNote() {
   osmd.cursor.next()
   if (osmd.cursor.Iterator.EndReached) {
     $sheetNotes = []
+    osmd.cursor.hide()
     const reset = () => {
       $showKeyboardControl = false
       unsub()
@@ -122,6 +123,9 @@ export function goToMeasure(measure) {
     return
   }
   osmd.cursor.reset()
+  if (osmd.cursor.hidden) {
+    osmd.cursor.show()
+  }
   let currentMeasure = getCurrentMeasure()
   while (currentMeasure >= 0 && currentMeasure < measure) {
     osmd.cursor.next()
@@ -140,9 +144,7 @@ export function goToNextMeasure() {
 }
 
 export function goToFirstMeasure() {
-  osmd.cursor.reset()
-  scrollIntoView()
-  updateSheetNotes()
+  goToMeasure(firstMeasure)
 }
 
 export function goToLastMeasure() {
