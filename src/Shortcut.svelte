@@ -12,7 +12,7 @@ let numbers = []
 
 $: $notification = numbers.join('')
 
-function handleKeydown(event) {
+function onKeydown(event) {
   switch(event.key) {
     case 'n':
       sheet.goToNextNote()
@@ -79,4 +79,4 @@ function handleKeydown(event) {
 }
 </script>
 
-<svelte:window on:keydown={handleKeydown}/>
+<svelte:window on:keydown={onKeydown}/>

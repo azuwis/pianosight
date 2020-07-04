@@ -62,17 +62,17 @@ function keyOff(key) {
   $playNotes = $playNotes
 }
 
-let handleMousedown = () => {}
-let handleMouseup = () => {}
-let handleTouchstart = () => {}
-let handleTouchend = () => {}
+let onMousedown = () => {}
+let onMouseup = () => {}
+let onTouchstart = () => {}
+let onTouchend = () => {}
 
 if (mobile) {
-  handleTouchstart = keyOn
-  handleTouchend = keyOff
+  onTouchstart = keyOn
+  onTouchend = keyOff
 } else {
-  handleMousedown = keyOn
-  handleMouseup = keyOff
+  onMousedown = keyOn
+  onMouseup = keyOff
 }
 
 $: keys = keys.map(key => {
@@ -98,10 +98,10 @@ function scrollToCenter(element) {
   <svg width={dimensions[0]} height={dimensions[1]} class="m-auto">
     {#each keys as key, index (key.index)}
     <polygon
-      on:mousedown={() => handleMousedown(key)}
-      on:mouseup={() => handleMouseup(key)}
-      on:touchstart={() => handleTouchstart(key)}
-      on:touchend={() => handleTouchend(key)}
+      on:mousedown={() => onMousedown(key)}
+      on:mouseup={() => onMouseup(key)}
+      on:touchstart={() => onTouchstart(key)}
+      on:touchend={() => onTouchend(key)}
       points={getPoints(key)
         .map(p => p.join(','))
         .join(' ')}

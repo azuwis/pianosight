@@ -51,12 +51,12 @@ function showCustomFiles(files) {
   select = customFiles[0]
 }
 
-function handleChange(event) {
+function onChange(event) {
   showCustomFiles(event.target.files)
   return true
 }
 
-function handleDrop(event) {
+function onDrop(event) {
   const dataTransfer = event.dataTransfer
   if (!dataTransfer) {
     return
@@ -65,11 +65,10 @@ function handleDrop(event) {
 }
 
 $: readFile(select)
-
 </script>
 
-<svelte:window on:drop|preventDefault={handleDrop} on:dragover|preventDefault/>
-<input multiple bind:this={inputFile} on:change={handleChange} type="file" accept=".xml,.mxl,.musicxml" class="hidden">
+<svelte:window on:drop|preventDefault={onDrop} on:dragover|preventDefault/>
+<input multiple bind:this={inputFile} on:change={onChange} type="file" accept=".xml,.mxl,.musicxml" class="hidden">
 <select bind:value={select}>
   <optgroup label="Builtin">
   {#each builtinFiles as file}

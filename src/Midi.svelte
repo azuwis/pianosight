@@ -70,7 +70,7 @@ WebMidi.enable((err) => {
   WebMidi.addListener('disconnected', midiDisconnected)
 })
 
-function handleChange() {
+function onChange() {
   removeAllInputListeners()
   if (selectedInput === 'all') {
     addAllInputListeners()
@@ -90,7 +90,7 @@ onDestroy(() => {
 </script>
 
 <!-- svelte-ignore a11y-no-onchange -->
-<select bind:value={selectedInput} on:change={handleChange}>
+<select bind:value={selectedInput} on:change={onChange}>
   <option value="all">
     All
   </option>
