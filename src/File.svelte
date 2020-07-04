@@ -28,6 +28,10 @@ export function goTo() {
 function readFile(file) {
   const type = typeof(file)
   if (type === 'string') {
+    if (file === 'open') {
+      open()
+      return
+    }
     $sheetMusic = file
   } else if (type === 'object') {
     const reader = new FileReader()
@@ -86,4 +90,9 @@ $: readFile(select)
   {/each}
   </optgroup>
   {/if}
+  <optgroup label="Control">
+    <option value="open">
+      Open Files
+    </option>
+  </optgroup>
 </select>
