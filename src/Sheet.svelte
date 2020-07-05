@@ -213,3 +213,9 @@ onDestroy(() => {
 </script>
 
 <div bind:this={sheet} class:mb-16={$showKeyboard}></div>
+
+<style>
+:global(img#cursorImg-0) {
+  height: 40px;
+}
+</style>
