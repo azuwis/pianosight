@@ -48,7 +48,7 @@ button {
   }
 }
 
-button  svg {
+button svg {
   @apply h-4;
 }
 </style>
