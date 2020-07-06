@@ -19,7 +19,7 @@ let file
     </div>
     <Nav {sheet}/>
   </div>
-  <div class="flex-1 overflow-y-auto px-4">
+  <div class="flex-1 overflow-y-auto lg:px-4">
     <Sheet {file} bind:this={sheet}/>
   </div>
   <Keyboard/>
