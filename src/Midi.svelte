@@ -83,9 +83,11 @@ function onChange() {
 }
 
 onDestroy(() => {
-  removeAllInputListeners()
-  WebMidi.removeListener()
-  WebMidi.disable()
+  if (WebMidi.enabled) {
+    removeAllInputListeners()
+    WebMidi.removeListener()
+    WebMidi.disable()
+  }
 })
 </script>
 
