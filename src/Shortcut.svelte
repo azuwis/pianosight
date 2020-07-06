@@ -8,6 +8,7 @@ import {
 
 export let file
 export let sheet
+let showHint = false
 let numbers = []
 
 $: $notification = numbers.join('')
@@ -17,6 +18,9 @@ function onKeydown(event) {
     return
   }
   switch(event.key) {
+    case '?':
+      toggleHint()
+      break
     case 'n':
       sheet.goToNextNote()
       break
@@ -80,6 +84,36 @@ function onKeydown(event) {
       break
   }
 }
+
+function toggleHint() {
+  showHint = !showHint
+}
 </script>
 
 <svelte:window on:keydown={onKeydown}/>
+<div on:click={toggleHint} class:hidden={!showHint} class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-25">
+  <div class="grid grid-cols-2 row-gap-1 col-gap-4 py-4 px-6 bg-white text-2xl border-t border-r border-l rounded-lg shadow-md">
+    <div><kbd>h</kbd>Previous measure</div>
+    <div><kbd>l</kbd>Next measure</div>
+    <div><kbd>k</kbd>Previous line</div>
+    <div><kbd>j</kbd>Next line</div>
+    <div><kbd>r</kbd>First measure</div>
+    <div><kbd>G</kbd>Last measure</div>
+    <div><kbd>q</kbd>Previous sheet</div>
+    <div><kbd>w</kbd>Next sheet</div>
+    <div><kbd>o</kbd>Open files</div>
+    <div><kbd>0123456789</kbd>Set number</div>
+    <div><kbd>g</kbd>Go to measure number</div>
+    <div><kbd>s</kbd>Staff to check</div>
+    <div><kbd>n</kbd>Next note</div>
+    <div><kbd>p</kbd>Show/hide keyboard</div>
+    <div><kbd>i</kbd>Show/hide key hint</div>
+    <div><kbd>?</kbd>Show/hide this hint</div>
+  </div>
+</div>
+
+<style>
+kbd {
+  @apply inline-block bg-gray-500 rounded-lg px-3 mr-1;
+}
+</style>
