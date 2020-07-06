@@ -94,7 +94,7 @@ function scrollToCenter(element) {
 
 <svelte:window on:resize={() => scrollToCenter(container)}/>
 {#if $showKeyboard}
-<div bind:this={container} use:scrollToCenter class="keyboard fixed bottom-0 w-screen flex flex-col overflow-x-auto">
+<div bind:this={container} use:scrollToCenter class="keyboard flex flex-col overflow-x-auto">
   <svg width={dimensions[0]} height={dimensions[1]} class="m-auto">
     {#each keys as key, index (key.index)}
     <polygon
@@ -119,6 +119,6 @@ function scrollToCenter(element) {
 
 <style>
 .keyboard {
-  margin-bottom: -1px;
+  margin: -2px 0 -1px 0;
 }
 </style>

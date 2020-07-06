@@ -212,7 +212,7 @@ onDestroy(() => {
 })
 </script>
 
-<div bind:this={sheet} class:mb-16={$showKeyboard}></div>
+<div bind:this={sheet}></div>
 
 <style>
 :global(img#cursorImg-0) {

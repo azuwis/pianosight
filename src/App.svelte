@@ -11,14 +11,18 @@ let sheet
 let file
 </script>
 
-<div class="flex flex-wrap flex-col md:flex-row items-center justify-center">
-  <div class="flex">
-    <File bind:this={file}/>
-    <Midi/>
+<div class="flex flex-col h-screen">
+  <div class="flex flex-wrap flex-col md:flex-row items-center justify-center">
+    <div class="flex">
+      <File bind:this={file}/>
+      <Midi/>
+    </div>
+    <Nav {sheet}/>
   </div>
-  <Nav {sheet}/>
+  <div class="flex-1 overflow-y-auto px-4">
+    <Sheet {file} bind:this={sheet}/>
+  </div>
+  <Keyboard/>
 </div>
-<Sheet {file} bind:this={sheet}/>
-<Keyboard/>
-<Notification/>
 <Shortcut {...{file, sheet}}/>
+<Notification/>
