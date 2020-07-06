@@ -13,6 +13,9 @@ let numbers = []
 $: $notification = numbers.join('')
 
 function onKeydown(event) {
+  if (event.ctrlKey || event.metaKey) {
+    return
+  }
   switch(event.key) {
     case 'n':
       sheet.goToNextNote()
