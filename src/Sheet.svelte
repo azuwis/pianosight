@@ -217,7 +217,7 @@ const reRender =  debounce(() => {
     removeOnMeasureClick()
     osmd.render()
     addOnMeasureClick()
-}, 100)
+}, 150)
 
 let onResize = () => {}
 let onOrientationChange = () => {}
