@@ -26,10 +26,12 @@ $playMatch = 0
 
 async function loadSheet(sheet) {
   $notification = 'loading...'
+  removeOnMeasureClick()
   await osmd.load(sheet)
   osmd.zoom = 1
   osmd.render()
   osmd.cursor.show()
+  addOnMeasureClick()
   $notification = ''
   firstMeasure = getCurrentMeasure()
   lastMeasure = osmd.Sheet.SourceMeasures.length + firstMeasure - 1
@@ -229,10 +231,8 @@ onMount(() => {
     drawingParameters: 'compact',
     followCursor: false
   })
-  onDestroy(sheetMusic.subscribe(async sheet => {
-    removeOnMeasureClick()
-    await loadSheet(sheet)
-    addOnMeasureClick()
+  onDestroy(sheetMusic.subscribe(sheet => {
+    loadSheet(sheet)
   }))
   onDestroy(stavesToCheck.subscribe(() => {
     if (osmd.cursor) {
