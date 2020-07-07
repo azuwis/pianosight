@@ -210,7 +210,9 @@ function removeOnMeasureClick() {
 
 const reRender =  debounce(() => {
   if (osmd && osmd.IsReadyToRender())
+    removeOnMeasureClick()
     osmd.render()
+    addOnMeasureClick()
 }, 100)
 
 let onResize = () => {}
