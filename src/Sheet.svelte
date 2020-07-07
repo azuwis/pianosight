@@ -187,6 +187,26 @@ export function goToNextLine() {
   goToMeasure(nextMeasure)
 }
 
+function onMeasureClick(event) {
+  goToMeasure(parseInt(event.target.innerHTML))
+}
+
+function addOnMeasureClick() {
+  sheet.querySelectorAll('text').forEach(text => {
+    if (text.innerHTML.match(/^\d+$/)) {
+      text.addEventListener('click', onMeasureClick)
+    }
+  })
+}
+
+function removeOnMeasureClick() {
+  sheet.querySelectorAll('text').forEach(text => {
+    if (text.innerHTML.match(/^\d+$/)) {
+      text.removeEventListener('click', onMeasureClick)
+    }
+  })
+}
+
 $: if ($playMatch > 0) {
   goToNextNote()
 }
@@ -197,8 +217,10 @@ onMount(() => {
     drawingParameters: 'compact',
     followCursor: false
   })
-  onDestroy(sheetMusic.subscribe(sheet => {
-    loadSheet(sheet)
+  onDestroy(sheetMusic.subscribe(async sheet => {
+    removeOnMeasureClick()
+    await loadSheet(sheet)
+    addOnMeasureClick()
   }))
   onDestroy(stavesToCheck.subscribe(() => {
     if (osmd.cursor) {
@@ -209,6 +231,7 @@ onMount(() => {
 
 onDestroy(() => {
   unsubPlayNotes()
+  removeOnMeasureClick()
 })
 </script>
 
