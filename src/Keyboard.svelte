@@ -88,7 +88,9 @@ $: keys = keys.map(key => {
 })
 
 function scrollToCenter(element) {
-  element.scrollTo((dimensions[0] - element.clientWidth) / 2, 0)
+  if (element) {
+    element.scrollTo((dimensions[0] - element.clientWidth) / 2, 0)
+  }
 }
 </script>
 
