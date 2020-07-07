@@ -45,13 +45,10 @@ function updateSheetNotes() {
 }
 
 function scrollIntoView() {
-  const cursorElement = osmd.cursor.cursorElement
-  const diff = cursorElement.getBoundingClientRect().top
-  const top = diff + window.pageYOffset - 60
-  window.scrollTo({
-    behavior: diff > -1000 && diff < 1000 ? 'smooth' : 'auto',
-    top
-  })
+  const top = osmd.cursor.cursorElement.offsetTop - 60
+  const overflow = sheet.parentElement
+  const behavior = Math.abs(overflow.scrollTop - top) < 1000 ? 'smooth' : 'auto'
+  overflow.scrollTo({behavior, top})
 }
 
 export function goToNextNote() {
