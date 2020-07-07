@@ -53,7 +53,7 @@ export let sheet
 
 <style>
 button {
-  @apply bg-white py-3 px-4 ml-1 mt-1 border border-gray-400 rounded;
+  @apply bg-white p-3 ml-1 mt-1 border border-gray-400 rounded;
   &:hover {
     @apply bg-gray-200;
   }
