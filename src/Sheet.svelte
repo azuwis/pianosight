@@ -1,6 +1,7 @@
 <script>
 import { onMount, onDestroy } from 'svelte'
 import opensheetmusicdisplay from 'opensheetmusicdisplay'
+import { debounce } from 'lodash-es'
 import {
   sheetMusic,
   sheetNotes,
@@ -11,6 +12,7 @@ import {
   playMatch,
   notification
 } from './stores.js'
+import { mobile } from './utils.js'
 
 export let file
 
@@ -204,6 +206,19 @@ function removeOnMeasureClick() {
   })
 }
 
+const reRender =  debounce(() => {
+  if (osmd && osmd.IsReadyToRender())
+    osmd.render()
+}, 100)
+
+let onResize = () => {}
+let onOrientationChange = () => {}
+if (mobile) {
+  onOrientationChange = reRender
+} else {
+  onResize = reRender
+}
+
 $: if ($playMatch > 0) {
   goToNextNote()
 }
@@ -232,6 +247,7 @@ onDestroy(() => {
 })
 </script>
 
+<svelte:window on:resize={onResize} on:orientationchange={onOrientationChange}/>
 <div bind:this={sheet}></div>
 
 <style>
