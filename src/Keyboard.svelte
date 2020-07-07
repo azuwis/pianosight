@@ -7,6 +7,7 @@ import {
   playNotes,
   checkPlayNotes
 } from './stores.js'
+import { mobile } from './utils.js'
 import {
   renderKeys,
   totalDimensions,
@@ -17,7 +18,6 @@ import {
 
 let container
 
-const mobile = navigator.userAgent.match(/(Mobile)/)
 const options = defaultOptions({
   scaleX: 1.2,
   scaleY: 1.2,
