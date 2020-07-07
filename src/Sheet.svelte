@@ -193,19 +193,23 @@ function onMeasureClick(event) {
 }
 
 function addOnMeasureClick() {
-  sheet.querySelectorAll('text').forEach(text => {
-    if (text.innerHTML.match(/^\d+$/)) {
-      text.addEventListener('click', onMeasureClick)
-    }
-  })
+  if (sheet) {
+    sheet.querySelectorAll('text').forEach(text => {
+      if (text.innerHTML.match(/^\d+$/)) {
+        text.addEventListener('click', onMeasureClick)
+      }
+    })
+  }
 }
 
 function removeOnMeasureClick() {
-  sheet.querySelectorAll('text').forEach(text => {
-    if (text.innerHTML.match(/^\d+$/)) {
-      text.removeEventListener('click', onMeasureClick)
-    }
-  })
+  if (sheet) {
+    sheet.querySelectorAll('text').forEach(text => {
+      if (text.innerHTML.match(/^\d+$/)) {
+        text.removeEventListener('click', onMeasureClick)
+      }
+    })
+  }
 }
 
 const reRender =  debounce(() => {
