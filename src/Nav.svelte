@@ -55,14 +55,15 @@ export let sheet
 button {
   @apply bg-white p-3 ml-1 mt-1 border border-gray-400 rounded;
   &:hover {
-    @apply bg-gray-200;
+    @apply border-gray-500;
   }
   &:active {
-    @apply bg-gray-400;
+    @apply bg-gray-200;
   }
   &:focus {
     @apply outline-none;
   }
+  -webkit-tap-highlight-color: transparent;
 }
 
 button svg {
