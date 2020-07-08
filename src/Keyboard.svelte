@@ -1,4 +1,5 @@
 <script>
+import { debounce } from 'lodash-es'
 import {
   sheetNotes,
   showSheetNotes,
@@ -92,9 +93,11 @@ function scrollToCenter(element) {
     element.scrollTo((dimensions[0] - element.clientWidth) / 2, 0)
   }
 }
+
+const scrollToCenterDebounced = debounce(scrollToCenter, 200)
 </script>
 
-<svelte:window on:resize={() => scrollToCenter(container)}/>
+<svelte:window on:resize={() => scrollToCenterDebounced(container)}/>
 {#if $showKeyboard}
 <div bind:this={container} use:scrollToCenter class="keyboard flex flex-col overflow-x-auto">
   <svg width={dimensions[0]} height={dimensions[1]} class="m-auto">
