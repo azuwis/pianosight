@@ -57,8 +57,11 @@ button {
   &:hover {
     @apply bg-gray-200;
   }
+  &:active {
+    @apply bg-gray-400;
+  }
   &:focus {
-    @apply shadow-outline outline-none;
+    @apply outline-none;
   }
 }
 
