@@ -3,8 +3,16 @@ import { sheetMusic } from './stores.js'
 
 let inputFile
 const builtinFiles = [
-  'easy.xml',
-  'hard.xml'
+  'lesson1.mxl',
+  'lesson2.mxl',
+  'lesson3.mxl',
+  'lesson4.mxl',
+  'lesson5.mxl',
+  'lesson6.mxl',
+  'lesson7.mxl',
+  'lesson8.mxl',
+  'lesson9.mxl',
+  'lesson10.mxl',
 ]
 let customFiles = []
 let select = builtinFiles[0]

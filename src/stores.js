@@ -1,6 +1,6 @@
 import { get, writable } from 'svelte/store'
 
-export const sheetMusic = writable('')
+export const sheetMusic = writable('lesson1.mxl')
 export const sheetNotes = writable([])
 export const showSheetNotes = writable(true)
 export const showKeyboard = writable(true)
