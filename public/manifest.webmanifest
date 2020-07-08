@@ -1,0 +1,11 @@
+{
+  "short_name": "PianoSight",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "150x150"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone"
+}
