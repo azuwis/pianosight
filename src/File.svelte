@@ -21,14 +21,14 @@ export function open() {
   inputFile.click()
 }
 
-export function goTo() {
+export function goTo(offset) {
   let index = builtinFiles.indexOf(select)
   if (index >= 0) {
-    select = builtinFiles[(index + 1) % builtinFiles.length]
+    select = builtinFiles[(index + offset) % builtinFiles.length]
   } else {
     index = customFiles.indexOf(select)
     if (index >= 0) {
-      select = customFiles[(index + 1) % customFiles.length]
+      select = customFiles[(index + offset) % customFiles.length]
     }
   }
 }
