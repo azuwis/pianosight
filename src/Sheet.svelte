@@ -25,7 +25,7 @@ let unsubPlayNotes = () => {}
 $playMatch = 0
 
 async function loadSheet(sheet) {
-  $notification = 'loading...'
+  $notification = 'Loading sheet...'
   removeOnMeasureClick()
   await osmd.load(sheet)
   osmd.zoom = 1

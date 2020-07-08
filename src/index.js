@@ -9,8 +9,8 @@ if (process.env.NODE_ENV === 'production') {
 
     wb.addEventListener('installed', event => {
       if (event.isUpdate) {
-        notification.set('Update available, reloading...')
-        setTimeout(window.location.reload, 1500);
+        notification.set('Updating app...');
+        setTimeout(() => window.location.reload(), 1500);
       }
     });
 
