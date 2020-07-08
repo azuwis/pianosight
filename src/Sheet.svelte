@@ -193,27 +193,23 @@ function onMeasureClick(event) {
 }
 
 function addOnMeasureClick() {
-  if (sheet) {
-    sheet.querySelectorAll('text').forEach(text => {
-      if (text.innerHTML.match(/^\d+$/)) {
-        text.addEventListener('click', onMeasureClick)
-      }
-    })
-  }
+  sheet?.querySelectorAll('text').forEach(text => {
+    if (text.innerHTML.match(/^\d+$/)) {
+      text.addEventListener('click', onMeasureClick)
+    }
+  })
 }
 
 function removeOnMeasureClick() {
-  if (sheet) {
-    sheet.querySelectorAll('text').forEach(text => {
-      if (text.innerHTML.match(/^\d+$/)) {
-        text.removeEventListener('click', onMeasureClick)
-      }
-    })
-  }
+  sheet?.querySelectorAll('text').forEach(text => {
+    if (text.innerHTML.match(/^\d+$/)) {
+      text.removeEventListener('click', onMeasureClick)
+    }
+  })
 }
 
 const reRender =  debounce(() => {
-  if (osmd && osmd.IsReadyToRender())
+  if (osmd?.IsReadyToRender())
     removeOnMeasureClick()
     osmd.render()
     addOnMeasureClick()
