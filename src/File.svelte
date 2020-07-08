@@ -56,11 +56,14 @@ function readFile(file) {
 }
 
 function showCustomFiles(files) {
-  if (!files || files.length === 0) {
-    return
+  customFiles = Array.from(files).filter(file => {
+    const filename = file.name.toLowerCase()
+    return filename.endsWith('.xml') || filename.endsWith('.musicxml')
+        || filename.endsWith('.mxl')
+  })
+  if (customFiles.length) {
+    select = customFiles[0]
   }
-  customFiles = Array.from(files)
-  select = customFiles[0]
 }
 
 function onChange(event) {
@@ -69,11 +72,7 @@ function onChange(event) {
 }
 
 function onDrop(event) {
-  const dataTransfer = event.dataTransfer
-  if (!dataTransfer) {
-    return
-  }
-  showCustomFiles(dataTransfer.files)
+  showCustomFiles(event.dataTransfer.files)
 }
 
 $: readFile(select)
