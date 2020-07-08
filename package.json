@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && rollup -c",
+    "sw": "rollup -c",
     "lint": "eslint src/*.js src/*.svelte"
   },
   "dependencies": {
