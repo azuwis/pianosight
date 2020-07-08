@@ -21,6 +21,8 @@ let sheet
 let firstMeasure = 0
 let lastMeasure = 0
 let unsubPlayNotes = () => {}
+let innerWidth
+let previousInnerWidth
 
 $playMatch = 0
 
@@ -212,19 +214,18 @@ function removeOnMeasureClick() {
   }
 }
 
-const reRender =  debounce(() => {
+const reRender = debounce(() => {
   if (osmd && osmd.IsReadyToRender())
     removeOnMeasureClick()
     osmd.render()
     addOnMeasureClick()
 }, 200)
 
-let onResize = () => {}
-let onOrientationChange = () => {}
-if (mobile) {
-  onOrientationChange = reRender
-} else {
-  onResize = reRender
+$: if (previousInnerWidth !== innerWidth) {
+  if (previousInnerWidth) {
+    reRender()
+  }
+  previousInnerWidth = innerWidth
 }
 
 $: if ($playMatch > 0) {
@@ -253,7 +254,7 @@ onDestroy(() => {
 })
 </script>
 
-<svelte:window on:resize={onResize} on:orientationchange={onOrientationChange}/>
+<svelte:window bind:innerWidth={innerWidth}/>
 <div bind:this={sheet}></div>
 
 <style>
