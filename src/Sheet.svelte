@@ -51,7 +51,7 @@ function updateSheetNotes() {
 function scrollIntoView() {
   const top = osmd.cursor.cursorElement.offsetTop - 60
   const overflow = sheet.parentElement
-  const behavior = Math.abs(overflow.scrollTop - top) < 1000 ? 'smooth' : 'auto'
+  const behavior = Math.abs(overflow.scrollTop - top) < 400 ? 'smooth' : 'auto'
   overflow.scrollTo({behavior, top})
 }
 
