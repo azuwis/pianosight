@@ -84,7 +84,7 @@ $: readFile(select)
   <optgroup label="Builtin">
   {#each builtinFiles as file}
     <option value={file}>
-      {file}
+      {file.replace(/\.[^/.]+$/, '')}
     </option>
   {/each}
   </optgroup>
@@ -92,7 +92,7 @@ $: readFile(select)
   <optgroup label="Custom">
   {#each customFiles as file}
     <option value={file}>
-      {file.name}
+      {file.name.replace(/\.[^/.]+$/, '')}
     </option>
   {/each}
   </optgroup>
