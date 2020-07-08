@@ -1,5 +1,6 @@
 import { Workbox } from 'workbox-window';
 import App from './App.svelte';
+import { notification } from './stores.js';
 import './index.css';
 
 if (process.env.NODE_ENV === 'production') {
@@ -8,7 +9,8 @@ if (process.env.NODE_ENV === 'production') {
 
     wb.addEventListener('installed', event => {
       if (event.isUpdate) {
-        window.location.reload();
+        notification.set('Update available, reloading...')
+        setTimeout(window.location.reload, 1500);
       }
     });
 
