@@ -25,20 +25,10 @@ module.exports = {
     }
   },
   theme: {
-    // customForms: theme => ({
-    //   default: {
-    //     select: {
-    //       '&:focus': {
-    //         boxShadow: undefined,
-    //         borderColor: undefined
-    //       }
-    //     }
-    //   }
-    // }),
     extend: {}
   },
   variants: {
     backgroundColor: ['responsive', 'hover', 'focus', 'active'],
   },
-  plugins: [require('@tailwindcss/custom-forms')]
+  plugins: []
 };
