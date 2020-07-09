@@ -23,6 +23,7 @@ const options = defaultOptions({
   scaleX: 1.2,
   scaleY: 1.2,
   upperHeight: 50,
+  palette: ['#39383D', '#F7FAFC'],
   range: ['A0', 'C8']
 })
 
