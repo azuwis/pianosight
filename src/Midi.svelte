@@ -92,8 +92,7 @@ onDestroy(() => {
 </script>
 
 <!-- svelte-ignore a11y-no-onchange -->
-<select bind:value={selectedInput} on:change={onChange}
-  class="form-select w-32 ml-1 border-gray-400 hover:border-gray-500 focus:border-gray-500 focus:shadow-none">
+<select bind:value={selectedInput} on:change={onChange} class="ml-1">
   <option value="all">
     All
   </option>
@@ -103,3 +102,10 @@ onDestroy(() => {
   </option>
   {/each}
 </select>
+
+<style>
+select {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%23718096' d='M17 8v1.994A1.999 1.999 0 0114.994 12H11v4.268a2 2 0 11-2 0V14H5.006A1.999 1.999 0 013 11.994V9.732a2 2 0 112 0V12h4V4H7l3-4 3 4h-2v6h4V8h-1V4h4v4h-1z'/%3E%3C/svg%3E");
+  background-size: 1em 1em;
+}
+</style>
