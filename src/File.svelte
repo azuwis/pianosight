@@ -80,7 +80,7 @@ $: readFile(select)
 
 <svelte:window on:drop|preventDefault={onDrop} on:dragover|preventDefault/>
 <input multiple bind:this={inputFile} on:change={onChange} type="file" accept=".xml,.mxl,.musicxml" class="hidden">
-<select bind:value={select} class="form-select">
+<select bind:value={select} class="form-select" title="Sheet music">
   <optgroup label="Builtin">
   {#each builtinFiles as file}
     <option value={file}>
