@@ -13,7 +13,7 @@ let file
 
 <div class="flex flex-col h-screen">
   <div class="flex flex-wrap flex-col md:flex-row items-center justify-center">
-    <div class="flex">
+    <div class="flex mt-1">
       <File bind:this={file}/>
       <Midi/>
     </div>

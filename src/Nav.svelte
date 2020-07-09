@@ -4,7 +4,7 @@ import { showSheetNotes, showKeyboard } from './stores.js'
 export let sheet
 </script>
 
-<div class="flex">
+<div class="flex mt-1">
   <button on:click={sheet.goToPreviousMeasure()} title="Previous measure">
     <svg viewBox="0 0 20 20">
       <polygon points="3.82842712 9 9.89949494 2.92893219 8.48528137 1.51471863 0 10 0.707106781 10.7071068 8.48528137 18.4852814 9.89949494 17.0710678 3.82842712 11 20 11 20 9 3.82842712 9"></polygon>
@@ -53,7 +53,7 @@ export let sheet
 
 <style>
 button {
-  @apply bg-white p-3 ml-1 mt-1 border border-gray-400 rounded;
+  @apply bg-white p-3 ml-1 border border-gray-400 rounded;
   &:hover {
     @apply border-gray-500;
   }
