@@ -256,9 +256,3 @@ onDestroy(() => {
 
 <svelte:window bind:innerWidth={innerWidth}/>
 <div bind:this={sheet}></div>
-
-<style>
-:global(img#cursorImg-0) {
-  height: 40px;
-}
-</style>
