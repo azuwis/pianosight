@@ -93,7 +93,7 @@ onDestroy(() => {
 
 <!-- svelte-ignore a11y-no-onchange -->
 <select bind:value={selectedInput} on:change={onChange}
-  class="form-select ml-1 mt-1 border-gray-400 hover:bg-gray-200 focus:border-gray-400 focus:shadow-none">
+  class="form-select w-32 ml-1 mt-1 border-gray-400 hover:border-gray-500 focus:border-gray-500 focus:shadow-none">
   <option value="all">
     All
   </option>

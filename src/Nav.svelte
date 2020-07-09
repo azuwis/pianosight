@@ -61,7 +61,7 @@ button {
     @apply bg-gray-200;
   }
   &:focus {
-    @apply outline-none;
+    @apply border-gray-500 outline-none;
   }
   -webkit-tap-highlight-color: transparent;
 }
