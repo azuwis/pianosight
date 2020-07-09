@@ -1,4 +1,5 @@
 <script>
+import { updateServiceWorker } from './workbox.js'
 import {
   showSheetNotes,
   showKeyboard,
@@ -56,6 +57,9 @@ function onKeydown(event) {
       break
     case 'i':
       $showSheetNotes = !$showSheetNotes
+      break
+    case 'u':
+      updateServiceWorker()
       break
     case '0':
     case '1':
