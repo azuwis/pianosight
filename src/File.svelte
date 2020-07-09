@@ -80,7 +80,7 @@ $: readFile(select)
 
 <svelte:window on:drop|preventDefault={onDrop} on:dragover|preventDefault/>
 <input multiple bind:this={inputFile} on:change={onChange} type="file" accept=".xml,.mxl,.musicxml" class="hidden">
-<select bind:value={select}>
+<select bind:value={select} class="form-select">
   <optgroup label="Builtin">
   {#each builtinFiles as file}
     <option value={file}>
@@ -105,7 +105,7 @@ $: readFile(select)
 </select>
 
 <style>
-select {
+.form-select {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg' fill='%23718096'%3E%3Cpath d='M18 4.286L8 5.714V17a3 3 0 01-3 3H3a3 3 0 010-6h2c.35 0 .687.06 1 .17V2l14-2v15a3 3 0 01-3 3h-2a3 3 0 010-6h2c.35 0 .687.06 1 .17V4.287z'/%3E%3C/svg%3E");
   background-size: 1em 1em;
 }
