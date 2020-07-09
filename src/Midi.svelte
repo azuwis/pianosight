@@ -94,7 +94,7 @@ onDestroy(() => {
 <!-- svelte-ignore a11y-no-onchange -->
 <select bind:value={selectedInput} on:change={onChange} class="form-select ml-1" title="MIDI devices">
   <option value="all">
-    All
+    All Midi
   </option>
   {#each midiInputs as input}
   <option value={input}>
