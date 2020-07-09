@@ -12,10 +12,14 @@ let file
 </script>
 
 <div class="flex flex-col h-screen">
-  <div class="flex flex-wrap flex-col md:flex-row items-center justify-center">
-    <div class="flex mt-1">
-      <File bind:this={file}/>
-      <Midi/>
+  <div class="flex flex-wrap items-center justify-center">
+    <div class="flex flex-wrap items-center justify-center space-x-1">
+      <div class="w-48 mt-1 ml-1">
+        <File bind:this={file}/>
+      </div>
+      <div class="w-48 mt-1 mr-1">
+        <Midi/>
+      </div>
     </div>
     <Nav {sheet}/>
   </div>
