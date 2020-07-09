@@ -581,10 +581,13 @@ object {
  * https://github.com/mozdevs/cssremedy/issues/14
  */
 
-img,
 video {
   max-width: 100%;
   height: auto;
+}
+
+img {
+  max-width: 100%;
 }
 
 /*# sourceMappingURL=base.css.map */
