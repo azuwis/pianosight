@@ -238,6 +238,9 @@ onMount(() => {
     drawingParameters: 'compact',
     followCursor: false
   })
+  if (process.env.NODE_ENV !== 'production') {
+    window.o = osmd
+  }
   onDestroy(sheetMusic.subscribe(sheet => {
     loadSheet(sheet)
   }))
