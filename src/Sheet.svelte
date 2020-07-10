@@ -41,7 +41,7 @@ async function loadSheet(sheet) {
 }
 
 function updateSheetNotes() {
-  sn = new Map()
+  const sn = new Map()
   osmd.cursor.NotesUnderCursor().forEach(note => {
     const halfTone = note.halfTone
     if (halfTone > 0) {
