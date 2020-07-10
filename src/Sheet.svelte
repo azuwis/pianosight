@@ -131,15 +131,16 @@ export function goToMeasure(measure) {
   if (measure < firstMeasure || measure > lastMeasure) {
     return
   }
-  osmd.cursor.reset()
+  osmd.cursor.resetIterator()
+  let currentMeasure = getCurrentMeasure()
+  while (currentMeasure >= 0 && currentMeasure < measure) {
+    osmd.cursor.iterator.moveToNext()
+    currentMeasure = getCurrentMeasure()
+  }
   if (osmd.cursor.hidden) {
     osmd.cursor.show()
   }
-  let currentMeasure = getCurrentMeasure()
-  while (currentMeasure >= 0 && currentMeasure < measure) {
-    osmd.cursor.next()
-    currentMeasure = getCurrentMeasure()
-  }
+  osmd.cursor.update()
   scrollIntoView()
   updateSheetNotes()
 }
