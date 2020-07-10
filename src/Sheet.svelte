@@ -41,11 +41,20 @@ async function loadSheet(sheet) {
 }
 
 function updateSheetNotes() {
-  $sheetNotes = osmd.cursor.NotesUnderCursor()
-    .filter(n => n.halfTone > 0 &&
-      ($stavesToCheck.size === 0 || $stavesToCheck.has(n.ParentStaff.Id)))
-    .map(n => n.halfTone)
-  if ($sheetNotes.length === 0) {
+  sn = new Map()
+  osmd.cursor.NotesUnderCursor().forEach(note => {
+    const halfTone = note.halfTone
+    if (halfTone > 0) {
+      const staff = note.ParentStaff.Id
+      if (sn.has(staff)) {
+        sn.get(staff).push(halfTone)
+      } else {
+        sn.set(staff, [halfTone])
+      }
+    }
+  })
+  $sheetNotes = sn
+  if (sn.size === 0) {
     goToNextNote()
   }
 }
@@ -63,7 +72,7 @@ export function goToNextNote() {
   }
   osmd.cursor.next()
   if (osmd.cursor.Iterator.EndReached) {
-    $sheetNotes = []
+    $sheetNotes = new Map()
     osmd.cursor.hide()
     const reset = () => {
       $showKeyboardControl = false

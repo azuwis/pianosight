@@ -77,11 +77,20 @@ if (mobile) {
   onMouseup = keyOff
 }
 
+// blue-700 red-700 purple-700 pink-700
+const keyColors = ['#2B6CB0', '#C53030', '#6B46C1', '#B83280']
+
 $: keys = keys.map(key => {
   const halfTone = key.index
   let fill = key.defaultFill
-  if ($showSheetNotes && $sheetNotes.includes(halfTone)) {
-    fill = 'purple'
+  if ($showSheetNotes) {
+    let index = 0
+    $sheetNotes.forEach(notes => {
+      if (notes.includes(halfTone)) {
+        fill = keyColors[index % keyColors.length]
+      }
+      index++
+    })
   }
   if ($playNotes.has(halfTone)) {
     fill = 'orange'
