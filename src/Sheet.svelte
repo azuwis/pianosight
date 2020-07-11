@@ -31,6 +31,7 @@ async function loadSheet(sheet) {
   removeOnMeasureClick()
   await osmd.load(sheet)
   osmd.zoom = 1
+  setMargin()
   osmd.render()
   osmd.cursor.show()
   addOnMeasureClick()
@@ -224,17 +225,21 @@ function removeOnMeasureClick() {
   }
 }
 
+function setMargin() {
+  const margin = innerWidth < 600 ? 2 : 5
+  osmd.DrawingParameters.rules.PageLeftMargin = margin
+  osmd.DrawingParameters.rules.PageRightMargin = margin
+}
+
 const reRender = debounce(() => {
   if (osmd && osmd.IsReadyToRender())
     removeOnMeasureClick()
+    setMargin()
     osmd.render()
     addOnMeasureClick()
 }, 200)
 
 $: if (previousInnerWidth !== innerWidth) {
-  const margin = innerWidth < 600 ? 2 : 5
-  osmd.DrawingParameters.rules.PageLeftMargin = margin
-  osmd.DrawingParameters.rules.PageRightMargin = margin
   if (previousInnerWidth) {
     reRender()
   }
