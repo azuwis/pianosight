@@ -96,7 +96,7 @@ function toggleHint() {
 
 <svelte:window on:keydown={onKeydown}/>
 <div on:click={toggleHint} class:hidden={!showHint} class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-25">
-  <div class="grid grid-cols-2 row-gap-1 col-gap-4 py-4 px-6 bg-white text-2xl border-t border-r border-l rounded-lg shadow-md">
+  <div class="grid grid-cols-1 md:grid-cols-2 row-gap-1 col-gap-4 py-4 px-6 bg-white text-lg border-t border-r border-l rounded-lg shadow-md">
     <div><kbd>h</kbd>Previous measure</div>
     <div><kbd>l</kbd>Next measure</div>
     <div><kbd>k</kbd>Previous line</div>
