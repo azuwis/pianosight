@@ -232,6 +232,9 @@ const reRender = debounce(() => {
 }, 200)
 
 $: if (previousInnerWidth !== innerWidth) {
+  const margin = innerWidth < 600 ? 2 : 5
+  osmd.DrawingParameters.rules.PageLeftMargin = margin
+  osmd.DrawingParameters.rules.PageRightMargin = margin
   if (previousInnerWidth) {
     reRender()
   }
