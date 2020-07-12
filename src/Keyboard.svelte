@@ -5,6 +5,7 @@ import {
   showSheetNotes,
   showKeyboard,
   showKeyboardControl,
+  keyboardScale,
   playNotes,
   checkPlayNotes
 } from './stores.js'
@@ -19,24 +20,42 @@ import {
 
 let container
 
-const options = defaultOptions({
-  scaleX: 1.2,
-  scaleY: 1.2,
+$showSheetNotes = !mobile
+
+$: options = defaultOptions({
+  scaleX: $keyboardScale,
+  scaleY: $keyboardScale,
   upperHeight: 50,
   palette: ['#39383D', '#F7FAFC'],
   range: ['A0', 'C8']
 })
 
-let keys = renderKeys(options).map(key => ({...key, defaultFill: key.fill}))
-
-$showSheetNotes = !mobile
-
-const dimensions = totalDimensions(options).map(
+$: dimensions = totalDimensions(options).map(
   v => Math.round(v) + options.strokeWidth * 2
 )
 
-function makeKeyText(index) {
-  const text = getTextElements(keys[index]).text
+$: defaultKeys = renderKeys(options).map(key => ({...key, defaultFill: key.fill}))
+
+$: keys = defaultKeys.map(key => {
+  const halfTone = key.index
+  let fill = key.defaultFill
+  if ($showSheetNotes) {
+    let index = 0
+    $sheetNotes.forEach(notes => {
+      if (notes.includes(halfTone)) {
+        fill = keyColors[index % keyColors.length]
+      }
+      index++
+    })
+  }
+  if ($playNotes.has(halfTone)) {
+    fill = 'orange'
+  }
+  return {...key, fill}
+})
+
+function makeKeyText(key) {
+  const text = getTextElements(key).text
   return {
     x: text.x,
     y: text.y,
@@ -48,10 +67,10 @@ function makeKeyText(index) {
   }
 }
 
-const textC = makeKeyText(39)
-const textPrevious = makeKeyText(44)
-const textUp = makeKeyText(46)
-const textNext = makeKeyText(48)
+$: textC = makeKeyText(defaultKeys[39])
+$: textPrevious = makeKeyText(defaultKeys[44])
+$: textUp = makeKeyText(defaultKeys[46])
+$: textNext = makeKeyText(defaultKeys[48])
 
 function keyOn(key) {
   $playNotes.add(key.index)
@@ -80,28 +99,14 @@ if (mobile) {
 // blue-700 red-700 purple-700 pink-700
 const keyColors = ['#2B6CB0', '#C53030', '#6B46C1', '#B83280']
 
-$: keys = keys.map(key => {
-  const halfTone = key.index
-  let fill = key.defaultFill
-  if ($showSheetNotes) {
-    let index = 0
-    $sheetNotes.forEach(notes => {
-      if (notes.includes(halfTone)) {
-        fill = keyColors[index % keyColors.length]
-      }
-      index++
-    })
-  }
-  if ($playNotes.has(halfTone)) {
-    fill = 'orange'
-  }
-  return {...key, fill}
-})
-
 function scrollToCenter(element) {
   if (element) {
     element.scrollTo((dimensions[0] - element.clientWidth) / 2, 0)
   }
+}
+
+$: if($keyboardScale) {
+  scrollToCenter(container)
 }
 
 const scrollToCenterDebounced = debounce(scrollToCenter, 200)

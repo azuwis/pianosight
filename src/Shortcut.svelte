@@ -3,6 +3,7 @@ import { updateServiceWorker } from './workbox.js'
 import {
   showSheetNotes,
   showKeyboard,
+  keyboardScale,
   stavesToCheck,
   notification
 } from './stores.js'
@@ -57,6 +58,15 @@ function onKeydown(event) {
       break
     case 'i':
       $showSheetNotes = !$showSheetNotes
+      break
+    case '+':
+      $keyboardScale *= 1.2
+      break
+    case '-':
+      $keyboardScale /= 1.2
+      break
+    case '=':
+      $keyboardScale = 1.2
       break
     case 'u':
       updateServiceWorker()
