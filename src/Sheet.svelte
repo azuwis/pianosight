@@ -1,6 +1,7 @@
 <script>
 import { onMount, onDestroy } from 'svelte'
 import opensheetmusicdisplay from 'opensheetmusicdisplay'
+const { OpenSheetMusicDisplay } = opensheetmusicdisplay
 import { debounce } from 'lodash-es'
 import {
   sheetMusic,
@@ -251,7 +252,7 @@ $: if ($playMatch > 0) {
 }
 
 onMount(() => {
-  osmd = new opensheetmusicdisplay.OpenSheetMusicDisplay(sheet, {
+  osmd = new OpenSheetMusicDisplay(sheet, {
     autoResize: false,
     drawingParameters: 'compact',
     followCursor: false
