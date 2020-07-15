@@ -1,6 +1,8 @@
 import svelte from 'rollup-plugin-svelte-hot'
+import autoPreprocess from 'svelte-preprocess'
 import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
+import postcss from 'rollup-plugin-postcss'
 import livereload from 'rollup-plugin-livereload'
 import { terser } from 'rollup-plugin-terser'
 import hmr from 'rollup-plugin-hot'
@@ -29,6 +31,12 @@ const hot = watch && !useLiveReload
 
 const sourceMap = dev
 
+// Clear bundle.css in hot mode, or old css will be loaded
+if (hot) {
+  const fs = require('fs')
+  fs.writeFileSync('public/build/bundle.css', '')
+}
+
 export default {
   input: 'src/main.js',
   output: {
@@ -39,15 +47,20 @@ export default {
   },
   plugins: [
     svelte({
+      preprocess: autoPreprocess({
+        sourceMap: sourceMap,
+        postcss: {},
+      }),
       // Enable run-time checks when not in production
       dev: !production,
+      emitCss: !hot,
       // We'll extract any component CSS out into a separate file — better for
       // performance
       // NOTE when hot option is enabled, this gets automatically be turned to
       // false because CSS extraction doesn't work with HMR currently
-      css: css => {
-        css.write('public/build/bundle.css')
-      },
+      // css: css => {
+      //   css.write('public/build/bundle.css')
+      // },
       hot: hot && {
         // Optimistic will try to recover from runtime
         // errors during component init
@@ -72,6 +85,11 @@ export default {
       dedupe: ['svelte'],
     }),
     commonjs(),
+
+    postcss({
+      sourceMap: sourceMap,
+      extract: !hot,
+    }),
 
     // In dev mode, call `npm run start:dev` once
     // the bundle has been generated
