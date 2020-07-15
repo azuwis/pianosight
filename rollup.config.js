@@ -108,7 +108,7 @@ export default {
     // instead of npm run dev), minify
     production && terser(),
 
-    hmr({
+    hot && hmr({
       public: 'public',
       inMemory: true,
 
