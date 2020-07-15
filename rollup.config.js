@@ -27,10 +27,12 @@ const production = !dev
 
 const hot = watch && !useLiveReload
 
+const sourceMap = dev
+
 export default {
   input: 'src/main.js',
   output: {
-    sourcemap: true,
+    sourcemap: sourceMap,
     format: 'iife',
     name: 'app',
     file: 'public/build/bundle.js',
