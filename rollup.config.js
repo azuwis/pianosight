@@ -2,6 +2,7 @@ import svelte from 'rollup-plugin-svelte-hot'
 import autoPreprocess from 'svelte-preprocess'
 import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
+import replace from '@rollup/plugin-replace'
 import postcss from 'rollup-plugin-postcss'
 import livereload from 'rollup-plugin-livereload'
 import { terser } from 'rollup-plugin-terser'
@@ -85,6 +86,10 @@ export default {
       dedupe: ['svelte'],
     }),
     commonjs(),
+
+    replace({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'dev'),
+    }),
 
     postcss({
       sourceMap: sourceMap,
