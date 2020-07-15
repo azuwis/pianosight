@@ -7,6 +7,7 @@ import postcss from 'rollup-plugin-postcss'
 import livereload from 'rollup-plugin-livereload'
 import { terser } from 'rollup-plugin-terser'
 import hmr from 'rollup-plugin-hot'
+import workbox from 'rollup-plugin-workbox-inject'
 
 // Set this to true to pass the --single flag to sirv (this serves your
 // index.html for any unmatched route, which is a requirement for SPA
@@ -38,7 +39,7 @@ if (hot) {
   fs.writeFileSync('public/build/bundle.css', '')
 }
 
-export default {
+const main = {
   input: 'src/main.js',
   output: {
     sourcemap: sourceMap,
@@ -130,6 +131,29 @@ export default {
     // skipWrite: true,
   },
 }
+
+const sw = {
+  input: 'src/sw.js',
+  output: {
+    file: 'public/service-worker.js',
+    format: 'iife',
+  },
+  plugins: [
+    resolve(),
+    replace({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production'),
+    }),
+    workbox({
+      globDirectory: 'public',
+      globPatterns: [
+        '**'
+      ],
+    }),
+    terser(),
+  ],
+}
+
+export default production ? [main, sw] : main
 
 function serve() {
   let started = false

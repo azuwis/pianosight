@@ -1,11 +1,36 @@
 <script>
-  export let name
+import Sheet from './Sheet.svelte'
+import Keyboard from './Keyboard.svelte'
+import Midi from './Midi.svelte'
+import File from './File.svelte'
+import Notification from './Notification.svelte'
+import Shortcut from './Shortcut.svelte'
+import Nav from './Nav.svelte'
+
+let sheet
+let file
 </script>
 
-<main class="text-center p-4 max-w-xs sm:max-w-none my-0 mx-auto">
-  <h1 class="text-red-600 uppercase text-6xl font-hairline">Hello {name}!</h1>
-  <p>
-    Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to
-    learn how to build Svelte apps.
-  </p>
-</main>
+<div class="flex flex-col h-screen">
+  <div class="flex flex-wrap items-center justify-center -ml-1">
+    <div class="ml-1">
+      <div class="flex flex-wrap items-center justify-center -ml-1">
+        <div class="w-48 mt-1 ml-1">
+          <File bind:this={file}/>
+        </div>
+        <div class="w-48 mt-1 ml-1">
+          <Midi/>
+        </div>
+      </div>
+    </div>
+    <div class="ml-1">
+      <Nav {sheet}/>
+    </div>
+  </div>
+  <div class="flex-1 overflow-y-auto lg:px-4">
+    <Sheet {file} bind:this={sheet}/>
+  </div>
+  <Keyboard/>
+</div>
+<Shortcut {...{file, sheet}}/>
+<Notification/>
