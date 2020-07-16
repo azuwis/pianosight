@@ -84,7 +84,7 @@ $: readFile(select)
   <optgroup label="Builtin">
   {#each builtinFiles as file}
     <option value={file}>
-      {file.replace(/\.[^/.]+$/, '')}
+      {file.replace(/\.[^/.]+$/, '').replace(/_/g, ' ')}
     </option>
   {/each}
   </optgroup>
