@@ -110,7 +110,7 @@ const main = {
     // instead of npm run dev), minify
     production && terser(),
 
-    hot && hmr({
+    hmr({
       public: 'public',
       inMemory: true,
 
