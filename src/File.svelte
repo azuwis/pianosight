@@ -1,5 +1,10 @@
 <script>
-import { sheetMusic } from './stores.js'
+import {
+  sheetMusic,
+  showSheetGenerator,
+} from './stores.js'
+
+export let sheetGenerator
 
 let inputFile
 const builtinFiles = [
@@ -7,6 +12,10 @@ const builtinFiles = [
 ]
 let customFiles = []
 let select = builtinFiles[0]
+
+$: if($showSheetGenerator) {
+  select = 'generate'
+}
 
 export function open() {
   inputFile.click()
@@ -25,13 +34,21 @@ export function goTo(offset) {
 }
 
 function readFile(file) {
+  let showGenerator = false
   const type = typeof(file)
   if (type === 'string') {
-    if (file === 'open') {
-      open()
-      return
+    switch(file) {
+      case 'open':
+        open()
+        break
+      case 'generate':
+        sheetGenerator.generate()
+        showGenerator = true
+        break
+      default:
+        $sheetMusic = file
+        break
     }
-    $sheetMusic = file
   } else if (type === 'object') {
     const reader = new FileReader()
     reader.onload = res => {
@@ -44,6 +61,7 @@ function readFile(file) {
       reader.readAsBinaryString(file)
     }
   }
+  $showSheetGenerator = showGenerator
 }
 
 function showCustomFiles(files) {
@@ -72,6 +90,14 @@ $: readFile(select)
 <svelte:window on:drop|preventDefault={onDrop} on:dragover|preventDefault/>
 <input multiple bind:this={inputFile} on:change={onChange} type="file" accept=".xml,.mxl,.musicxml" class="hidden">
 <select bind:value={select} class="form-select" title="Sheet music">
+  <optgroup label="Control">
+    <option value="generate">
+      Generate Sheet
+    </option>
+    <option value="open">
+      Open Files
+    </option>
+  </optgroup>
   <optgroup label="Builtin">
   {#each builtinFiles as file}
     <option value={file}>
@@ -88,11 +114,6 @@ $: readFile(select)
   {/each}
   </optgroup>
   {/if}
-  <optgroup label="Control">
-    <option value="open">
-      Open Files
-    </option>
-  </optgroup>
 </select>
 
 <style>

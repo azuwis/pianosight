@@ -2,6 +2,7 @@
 import { updateServiceWorker } from './workbox.js'
 import {
   showSheetNotes,
+  showSheetGenerator,
   showKeyboard,
   keyboardScale,
   stavesToCheck,
@@ -10,6 +11,7 @@ import {
 
 export let file
 export let sheet
+export let sheetGenerator
 let showHint = false
 let numbers = []
 
@@ -43,6 +45,10 @@ function onKeydown(event) {
       break
     case 'G':
       sheet.goToLastMeasure()
+      break
+    case 'y':
+      $showSheetGenerator = true
+      sheetGenerator.generate()
       break
     case 'p':
       $showKeyboard = !$showKeyboard

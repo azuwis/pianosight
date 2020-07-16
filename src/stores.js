@@ -3,6 +3,7 @@ import { get, writable } from 'svelte/store'
 export const sheetMusic = writable('lesson1.mxl')
 export const sheetNotes = writable(new Map())
 export const showSheetNotes = writable(true)
+export const showSheetGenerator = writable(false)
 export const showKeyboard = writable(true)
 export const showKeyboardControl = writable(false)
 export const keyboardScale = writable(1.2)
