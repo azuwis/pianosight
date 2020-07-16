@@ -16,3 +16,24 @@
 .form-select:focus {
   @apply border border-gray-500;
 }
+
+.form-button {
+  @apply bg-white mt-1 ml-1 p-3 border border-gray-400 rounded;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.form-button:hover {
+  @apply border-gray-500;
+}
+
+.form-button:active {
+  @apply bg-gray-200;
+}
+
+.form-button:focus {
+  @apply border-gray-500 outline-none;
+}
+
+.form-button svg {
+  @apply h-4;
+}
