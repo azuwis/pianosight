@@ -11,7 +11,7 @@ const builtinFiles = [
   'goodbye_song.mxl',
 ]
 let customFiles = []
-let select = builtinFiles[0]
+let select = 'generate'
 
 $: if($showSheetGenerator) {
   select = 'generate'
@@ -84,7 +84,9 @@ function onDrop(event) {
   showCustomFiles(event.dataTransfer.files)
 }
 
-$: readFile(select)
+$: if(sheetGenerator) {
+  readFile(select)
+}
 </script>
 
 <svelte:window on:drop|preventDefault={onDrop} on:dragover|preventDefault/>
@@ -92,7 +94,7 @@ $: readFile(select)
 <select bind:value={select} class="form-select" title="Sheet music">
   <optgroup label="Control">
     <option value="generate">
-      Generate Sheet
+      Generate
     </option>
     <option value="open">
       Open Files

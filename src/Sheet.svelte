@@ -260,7 +260,9 @@ onMount(() => {
     window.osmd = osmd
   }
   onDestroy(sheetMusic.subscribe(sheet => {
-    loadSheet(sheet)
+    if (sheet) {
+      loadSheet(sheet)
+    }
   }))
   onDestroy(stavesToCheck.subscribe(() => {
     if (osmd.cursor) {
