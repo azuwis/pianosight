@@ -33,6 +33,7 @@
     "dev:livereload": "cross-env LIVERELOAD=1 rollup -c -w",
     "dev:nollup": "cross-env NOLLUP=1 nollup -c --hot --port 5000 --content-base ./public",
     "dev": "npm run dev:nollup",
+    "icon": "rsvg-convert -b white -w 512 public/favicon.svg -o public/favicon-512.png; rsvg-convert -b white -w 192 public/favicon.svg -o public/favicon-192.png; pngquant -f --ext .png 2 public/favicon-512.png public/favicon-192.png",
     "start": "sirv public"
   }
 }
