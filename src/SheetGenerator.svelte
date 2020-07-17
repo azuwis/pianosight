@@ -23,19 +23,19 @@ let inputMeasure = 16
 let inputPitch
 
 const scaleOptions = [
-  ['major_0-0', 'C Major'],
-  ['major_4-0', 'G Major'],
-  ['major_1-0', 'D Major'],
-  ['major_5-0', 'A Major'],
-  ['major_2-0', 'E Major'],
-  ['major_6-0', 'B Major'],
-  ['major_3-#', 'F# Major'],
-  ['major_3-0', 'F Major'],
-  ['major_6-b', 'Bb Major'],
-  ['major_2-b', 'Eb Major'],
-  ['major_5-b', 'Ab Major'],
-  ['major_1-b', 'Db Major'],
-  ['major_4-b', 'Gb Major'],
+  ['major_0-0', 'C'],
+  ['major_4-0', 'G'],
+  ['major_1-0', 'D'],
+  ['major_5-0', 'A'],
+  ['major_2-0', 'E'],
+  ['major_6-0', 'B'],
+  ['major_3-#', 'F#'],
+  ['major_3-0', 'F'],
+  ['major_6-b', 'Bb'],
+  ['major_2-b', 'Eb'],
+  ['major_5-b', 'Ab'],
+  ['major_1-b', 'Db'],
+  ['major_4-b', 'Gb'],
 ]
 const timeOptions = [2, 3, 4]
 const measureOptions = [8, 16, 32, 48, 64, 100, 200, 300]
