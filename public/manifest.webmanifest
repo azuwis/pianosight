@@ -1,4 +1,5 @@
 {
+  "name": "PianoSight",
   "short_name": "PianoSight",
   "icons": [
     {
@@ -13,6 +14,7 @@
     }
   ],
   "start_url": "/",
-  "display": "standalone",
+  "display": "fullscreen",
+  "background_color": "#000000",
   "theme_color": "#000000"
 }
