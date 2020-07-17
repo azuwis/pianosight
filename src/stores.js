@@ -1,4 +1,5 @@
 import { get, writable } from 'svelte/store'
+import { mobile } from './utils.js'
 
 export const sheetMusic = writable('lesson1.mxl')
 export const sheetNotes = writable(new Map())
@@ -6,7 +7,7 @@ export const showSheetNotes = writable(true)
 export const showSheetGenerator = writable(false)
 export const showKeyboard = writable(true)
 export const showKeyboardControl = writable(false)
-export const keyboardScale = writable(1.2)
+export const keyboardScale = writable(mobile ? 1.8 : 1.2)
 export const stavesToCheck = writable(new Set())
 export const playNotes = writable(new Set())
 export const playMatch = writable(0)
