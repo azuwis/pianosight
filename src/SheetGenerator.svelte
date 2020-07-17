@@ -64,7 +64,7 @@ export function generate() {
 <div class:hidden={!$showSheetGenerator} class="ml-1">
   <div class="flex flex-wrap items-center justify-center -ml-1">
     <div class="w-auto mt-1 ml-1">
-      <select bind:value={inputScale} class="form-select form-scale" title="Key signature">
+      <select bind:value={inputScale} on:change={generate} class="form-select form-scale" title="Key signature">
         {#each scaleOptions as scale}
         <option value={scale[0]}>
           {scale[1]}
@@ -74,7 +74,7 @@ export function generate() {
     </div>
 
     <div class="w-auto mt-1 ml-1">
-      <select bind:value={inputTime} class="form-select form-time" title="Time signature">
+      <select bind:value={inputTime} on:change={generate} class="form-select form-time" title="Time signature">
         {#each timeOptions as time}
         <option value={time}>
           {time}/4
@@ -84,7 +84,7 @@ export function generate() {
     </div>
 
     <div class="w-auto mt-1 ml-1">
-      <select bind:value={inputMeasure} class="form-select form-measure" title="Number of measures">
+      <select bind:value={inputMeasure} on:change={generate} class="form-select form-measure" title="Number of measures">
         {#each measureOptions as measure}
         <option value={measure}>
           {measure}
