@@ -113,7 +113,7 @@ export function generate() {
 }
 
 .form-measure {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='150 0 50 100' fill='%23718096'%3E%3Cpath d='M0 0h200v4H0zM0 24h200v4H0zM0 48h200v4H0zM0 72h200v4H0zM0 96h200v4H0z'/%3E%3Cpath d='M176 0h4v100h-4zM188 0h12v100h-12z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='160 0 40 100' fill='%23718096'%3E%3Cpath d='M0 0h200v4H0zM0 24h200v4H0zM0 48h200v4H0zM0 72h200v4H0zM0 96h200v4H0z'/%3E%3Cpath d='M176 0h4v100h-4zM188 0h12v100h-12z'/%3E%3C/svg%3E");
   background-size: 0.9em 0.9em;
 }
 </style>
