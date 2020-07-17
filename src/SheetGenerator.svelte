@@ -38,7 +38,7 @@ const scaleOptions = [
   ['major_4-b', 'Gb'],
 ]
 const timeOptions = [2, 3, 4]
-const measureOptions = [8, 16, 32, 48, 64, 100, 200, 300]
+const measureOptions = [8, 16, 32, 48, 64, 96]
 
 export function generate() {
   const time_signature = new RhythmInstruction(new Fraction(inputTime, 4, 0, false), RhythmSymbolEnum.NONE)
