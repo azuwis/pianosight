@@ -22,6 +22,10 @@ export function open() {
 }
 
 export function goTo(offset) {
+  if (select === 'generate') {
+    sheetGenerator.generate()
+    return
+  }
   let index = builtinFiles.indexOf(select)
   if (index >= 0) {
     select = builtinFiles[(index + offset) % builtinFiles.length]
