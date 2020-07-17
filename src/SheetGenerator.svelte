@@ -18,7 +18,7 @@ import {
 
 let inputScale
 let inputTime = 4
-let inputComplexity = 2
+let inputComplexity = 6
 let inputMeasure = 16
 
 const scaleOptions = [
@@ -43,8 +43,9 @@ const measureOptions = [8, 16, 32, 48, 64, 96]
 export function generate() {
   const time_signature = new RhythmInstruction(new Fraction(inputTime, 4, 0, false), RhythmSymbolEnum.NONE)
   const scale_key = ScaleKey.fromStringCode(inputScale)
-  const pitch_settings = ComplexityMap.getPitchSettings(inputComplexity)
-  const duration_settings = ComplexityMap.getDurationSettings(inputComplexity)
+  const complexity = inputComplexity / 10
+  const pitch_settings = ComplexityMap.getPitchSettings(complexity)
+  const duration_settings = ComplexityMap.getDurationSettings(complexity)
   const rules = new EngravingRules()
   const options = {
     time_signature,
