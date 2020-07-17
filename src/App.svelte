@@ -17,10 +17,10 @@ let file
   <div class="flex flex-wrap items-center justify-center -ml-1">
     <div class="ml-1">
       <div class="flex flex-wrap items-center justify-center -ml-1">
-        <div class="w-48 mt-1 ml-1">
+        <div class="w-auto mt-1 ml-1">
           <File {sheetGenerator} bind:this={file}/>
         </div>
-        <div class="w-48 mt-1 ml-1">
+        <div class="w-auto mt-1 ml-1">
           <Midi/>
         </div>
       </div>
