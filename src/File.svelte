@@ -88,7 +88,7 @@ function onDrop(event) {
   showCustomFiles(event.dataTransfer.files)
 }
 
-$: if(sheetGenerator) {
+$: if(sheetGenerator && sheetGenerator.generate) {
   readFile(select)
 }
 </script>
