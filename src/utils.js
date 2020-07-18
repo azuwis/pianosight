@@ -1,1 +1,1 @@
-export const mobile = 'ontouchstart' in window
+export const isTouchScreen = 'ontouchstart' in window

@@ -12,7 +12,6 @@ import {
   playMatch,
   notification
 } from './stores.js'
-import { mobile } from './utils.js'
 
 export let file
 

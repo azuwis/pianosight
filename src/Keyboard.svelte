@@ -9,7 +9,7 @@ import {
   playNotes,
   checkPlayNotes
 } from './stores.js'
-import { mobile } from './utils.js'
+import { isTouchScreen } from './utils.js'
 import {
   renderKeys,
   totalDimensions,
@@ -20,7 +20,7 @@ import {
 
 let container
 
-$showSheetNotes = !mobile
+$showSheetNotes = !isTouchScreen
 
 $: options = defaultOptions({
   scaleX: $keyboardScale,
@@ -88,7 +88,7 @@ let onMouseup = () => {}
 let onTouchstart = () => {}
 let onTouchend = () => {}
 
-if (mobile) {
+if (isTouchScreen) {
   onTouchstart = keyOn
   onTouchend = keyOff
 } else {
