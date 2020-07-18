@@ -9,6 +9,7 @@ export let sheetGenerator
 let inputFile
 const builtinFiles = [
   'goodbye_song.mxl',
+  'ode_to_joy.mxl',
 ]
 let customFiles = []
 let select = 'generate'
