@@ -1,1 +1,1 @@
-export const mobile = navigator.userAgent.match(/(Mobile)/)
+export const mobile = 'ontouchstart' in window
