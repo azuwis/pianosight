@@ -1,17 +1,17 @@
-<script>
-import { onDestroy } from 'svelte'
+<script context="module">
+import { get, writable } from 'svelte/store'
 import WebMidi from 'webmidi'
 import { playNotes, checkPlayNotes } from './stores.js'
 
 let selectedInput = 'all'
-let midiInputs = []
+let midiInputs = writable([])
 let midiListeners = {}
 
 function midiConnected(event) {
   if (event.port.type === 'output') {
     return
   }
-  midiInputs = WebMidi.inputs.map(input => input.name)
+  midiInputs.set(WebMidi.inputs.map(input => input.name))
   if (selectedInput === 'all' || selectedInput === event.port.name) {
     addInputListener(event.port)
   }
@@ -21,7 +21,7 @@ function midiDisconnected(event) {
   if (event.port.type === 'output') {
     return
   }
-  midiInputs = WebMidi.inputs.map(input => input.name)
+  midiInputs.set(WebMidi.inputs.map(input => input.name))
   const name = event.port.name
   midiListeners[name] = false
   if (selectedInput === name) {
@@ -31,14 +31,17 @@ function midiDisconnected(event) {
 }
 
 function noteOn(event) {
-  $playNotes.add(event.note.number - 12)
+  const pn = get(playNotes)
+  pn.add(event.note.number - 12)
   checkPlayNotes()
-  $playNotes = $playNotes
+  playNotes.set(pn)
 }
 
 function noteOff(event) {
-  $playNotes.delete(event.note.number - 12)
-  $playNotes = $playNotes
+  playNotes.update(pn => {
+    pn.delete(event.note.number - 12)
+    return pn
+  })
 }
 
 function addInputListener(input) {
@@ -81,14 +84,6 @@ function onChange() {
     }
   }
 }
-
-onDestroy(() => {
-  if (WebMidi.enabled) {
-    removeAllInputListeners()
-    WebMidi.removeListener()
-    WebMidi.disable()
-  }
-})
 </script>
 
 <!-- svelte-ignore a11y-no-onchange -->
@@ -96,7 +91,7 @@ onDestroy(() => {
   <option value="all">
     All Midi Inputs
   </option>
-  {#each midiInputs as input}
+  {#each $midiInputs as input}
   <option value={input}>
     {input}
   </option>
