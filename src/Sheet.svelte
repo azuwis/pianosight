@@ -31,13 +31,15 @@ async function loadSheet(sheet) {
   await osmd.load(sheet)
   osmd.zoom = 1
   setMargin()
-  osmd.render()
-  osmd.cursor.show()
-  addOnMeasureClick()
-  $notification = ''
-  firstMeasure = getCurrentMeasure()
-  lastMeasure = osmd.Sheet.SourceMeasures.length + firstMeasure - 1
-  updateSheetNotes()
+  setTimeout(() => {
+    osmd.render()
+    osmd.cursor.show()
+    addOnMeasureClick()
+    $notification = ''
+    firstMeasure = getCurrentMeasure()
+    lastMeasure = osmd.Sheet.SourceMeasures.length + firstMeasure - 1
+    updateSheetNotes()
+  }, 0)
 }
 
 function updateSheetNotes() {
