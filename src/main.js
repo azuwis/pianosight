@@ -1,5 +1,6 @@
 import App from './App.svelte'
-import './workbox.js';
+import './workbox.js'
+import './wakelock.js'
 import './main.css'
 
 const app = new App({
