@@ -1,4 +1,5 @@
 <script>
+import { slide } from 'svelte/transition'
 import { debounce } from 'lodash-es'
 import {
   sheetNotes,
@@ -114,6 +115,7 @@ const scrollToCenterDebounced = debounce(scrollToCenter, 200)
 
 <svelte:window on:resize={() => scrollToCenterDebounced(container)}/>
 {#if $showKeyboard}
+<div transition:slide>
 <div bind:this={container} use:scrollToCenter class="keyboard flex flex-col overflow-x-auto">
   <svg width={dimensions[0]} height={dimensions[1]} class="m-auto">
     {#each keys as key, index (key.index)}
@@ -135,10 +137,11 @@ const scrollToCenterDebounced = debounce(scrollToCenter, 200)
     {/if}
   </svg>
 </div>
+</div>
 {/if}
 
 <style>
 .keyboard {
-  margin: -2px 0 -1px 0;
+  margin-bottom: -1px;
 }
 </style>
