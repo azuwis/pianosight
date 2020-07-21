@@ -18,9 +18,18 @@ if (process.env.NODE_ENV === 'production') {
   }
 }
 
-export function updateServiceWorker() {
+export async function updateServiceWorker() {
   if (workbox) {
-    workbox.update()
+    notification.set('Checking for update...')
+    await workbox.update()
+    const reg = workbox.p
+    if (reg.installing || reg.waiting) {
+    } else {
+      notification.set('Already latest version')
+      setTimeout(() => {
+        notification.set('')
+      }, 1000)
+    }
   } else {
     console.log('Service worker not registered.')
   }
