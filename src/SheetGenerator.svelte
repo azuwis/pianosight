@@ -16,11 +16,6 @@ import {
   showSheetGenerator,
 } from './stores.js'
 
-let inputScale
-let inputTime = 4
-let inputComplexity = 6
-let inputMeasure = 16
-
 const scaleOptions = [
   ['major_0-0', 'C'],
   ['major_4-0', 'G'],
@@ -39,6 +34,11 @@ const scaleOptions = [
 const timeOptions = [2, 3, 4]
 const complexityOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 const measureOptions = [8, 16, 32, 48, 64, 96]
+
+let inputScale = scaleOptions[0][0]
+let inputTime = 4
+let inputComplexity = 6
+let inputMeasure = 16
 
 export function generate() {
   const time_signature = new RhythmInstruction(new Fraction(inputTime, 4, 0, false), RhythmSymbolEnum.NONE)
