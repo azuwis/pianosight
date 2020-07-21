@@ -28,13 +28,20 @@ function showToolbar() {
 
 function hideToolbar() {
   if (!toolbarHidden) {
-    toolbar.style.height = 0
+    toolbar.style.height = `${toolbar.scrollHeight}px`
+    setTimeout(() => {
+      toolbar.style.height = 0
+    }, 0)
     toolbarHidden = true
   }
 }
 
 onMount(() => {
-  toolbar.style.height = `${toolbar.scrollHeight}px`
+  toolbar.addEventListener('transitionend', () => {
+    if (!toolbarHidden) {
+      toolbar.style.height = ''
+    }
+  })
   onDestroy(playMatch.subscribe((pm) => {
     if (pm > 0) {
       if (innerHeight < 600) {
