@@ -63,7 +63,8 @@ export function generate() {
 </script>
 
 <!-- svelte-ignore a11y-no-onchange -->
-<div class:hidden={!$showSheetGenerator} class="ml-1">
+{#if $showSheetGenerator}
+<div class="ml-1">
   <div class="flex flex-wrap items-center justify-center -ml-1">
     <div class="w-auto mt-1 ml-1">
       <select bind:value={inputScale} on:change={generate} class="form-select form-scale" title="Key signature">
@@ -112,6 +113,7 @@ export function generate() {
     </button>
   </div>
 </div>
+{/if}
 
 <style>
 .form-scale {
