@@ -81,6 +81,6 @@ onMount(() => {
 <style>
 #toolbar {
   transition: height .4s;
-  overflow: hidden;
+  overflow-y: hidden;
 }
 </style>
