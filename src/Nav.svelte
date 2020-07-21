@@ -1,5 +1,6 @@
 <script>
 import { showSheetNotes, showKeyboard } from './stores.js'
+import { updateServiceWorker } from './workbox.js'
 
 export let sheet
 </script>
@@ -47,6 +48,11 @@ export let sheet
   <button on:click={() => {$showSheetNotes = !$showSheetNotes}} class="form-button" title="Show/hide keyboard">
     <svg viewBox="0 0 20 20" fill-rule="evenodd">
       <path d="M11,11.8999819 C13.2822403,11.4367116 15,9.41895791 15,7 C15,4.23857625 12.7614237,2 10,2 C7.23857625,2 5,4.23857625 5,7 C5,9.41895791 6.71775968,11.4367116 9,11.8999819 L9,14 L11,14 L11,11.8999819 Z M13,13.3263688 C15.3649473,12.2029049 17,9.79239596 17,7 C17,3.13400675 13.8659932,0 10,0 C6.13400675,0 3,3.13400675 3,7 C3,9.79239596 4.63505267,12.2029049 7,13.3263688 L7,16 L13,16 L13,13.3263688 Z M7,17 L13,17 L13,18.5 C13,19.3284271 12.3349702,20 11.501424,20 L8.49857602,20 C7.67093534,20 7,19.3342028 7,18.5 L7,17 Z"></path>
+    </svg>
+  </button>
+  <button on:click={updateServiceWorker} class="form-button" title="Check for update">
+    <svg viewBox="0 0 16 16">
+      <path d="M9 12h2l-3 3-3-3h2V7h2v5zm3-8c0-.44-.91-3-4.5-3C5.08 1 3 2.92 3 5 1.02 5 0 6.52 0 8c0 1.53 1 3 3 3h3V9.7H3C1.38 9.7 1.3 8.28 1.3 8c0-.17.05-1.7 1.7-1.7h1.3V5c0-1.39 1.56-2.7 3.2-2.7 2.55 0 3.13 1.55 3.2 1.8v1.2H12c.81 0 2.7.22 2.7 2.2 0 2.09-2.25 2.2-2.7 2.2h-2V11h2c2.08 0 4-1.16 4-3.5C16 5.06 14.08 4 12 4z"></path>
     </svg>
   </button>
 </div>
