@@ -28,6 +28,7 @@
   },
   "scripts": {
     "build": "rollup -c --environment NODE_ENV:production",
+    "sw": "rollup -c --environment SERVICE_WORKER",
     "dev:rollup": "rollup -c -w",
     "dev:livereload": "rollup -c -w --environment LIVERELOAD",
     "dev:nollup": "nollup -c --environment NOLLUP --hot --port 5000 --content-base ./public",

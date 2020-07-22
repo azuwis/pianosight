@@ -156,7 +156,7 @@ const sw = {
   ],
 }
 
-export default production ? [main, sw] : main
+export default process.env.SERVICE_WORKER ? sw : (production ? [main, sw] : main)
 
 function serve() {
   let started = false
