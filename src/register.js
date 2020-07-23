@@ -26,6 +26,7 @@ if (process.env.NODE_ENV === 'production') {
 
 export function updateServiceWorker() {
   if (registration) {
+    notification.set('Checking update...')
     registration.update().then(reg => {
       if (!reg.installing && !reg.waiting) {
         notification.set('Already updated')
