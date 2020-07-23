@@ -3,7 +3,8 @@ if ('wakeLock' in navigator) {
   const requestWakeLock = async () => {
     try {
       wakeLock = await navigator.wakeLock.request('screen')
-    } catch (err) {
+    } catch (error) {
+      console.error('Error during request wakelock:', error)
     }
   }
 
