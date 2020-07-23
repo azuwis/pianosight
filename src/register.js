@@ -12,10 +12,8 @@ if (process.env.NODE_ENV === 'production') {
     cached (reg) {
     },
     updatefound (reg) {
-      notification.set('Downloading update...')
     },
     updated (reg) {
-      console.log('New content is available; please refresh.')
       notification.set('Updating app...')
       setTimeout(() => window.location.reload(), 1500)
     },
