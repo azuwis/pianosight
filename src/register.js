@@ -12,6 +12,7 @@ if (process.env.NODE_ENV === 'production') {
     cached (reg) {
     },
     updatefound (reg) {
+      notification.set('Downloading update...')
     },
     updated (reg) {
       notification.set('Updating app...')
