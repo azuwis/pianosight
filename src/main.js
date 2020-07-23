@@ -1,5 +1,5 @@
 import App from './App.svelte'
-import './workbox.js'
+import './register.js'
 import './wakelock.js'
 import './main.css'
 

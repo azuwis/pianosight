@@ -1,5 +1,5 @@
 <script>
-import { updateServiceWorker } from './workbox.js'
+import { updateServiceWorker } from './register.js'
 import {
   showSheetNotes,
   showSheetGenerator,

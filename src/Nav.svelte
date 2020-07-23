@@ -1,6 +1,6 @@
 <script>
 import { showSheetNotes, showKeyboard } from './stores.js'
-import { updateServiceWorker } from './workbox.js'
+import { updateServiceWorker } from './register.js'
 
 export let sheet
 </script>
