@@ -10,12 +10,13 @@ if (process.env.NODE_ENV === 'production') {
       registration = reg
     },
     cached (reg) {
+      notification.set('')
     },
     updatefound (reg) {
       notification.set('Downloading update...')
     },
     updated (reg) {
-      notification.set('Updating app...')
+      notification.set('App updated, refreshing...')
       setTimeout(() => window.location.reload(), 1500)
     },
     error (error) {
@@ -26,7 +27,7 @@ if (process.env.NODE_ENV === 'production') {
 
 export function updateServiceWorker() {
   if (registration) {
-    notification.set('Checking update...')
+    notification.set('Checking for update...')
     registration.update().then(reg => {
       if (!reg.installing && !reg.waiting) {
         notification.set('Already updated')
