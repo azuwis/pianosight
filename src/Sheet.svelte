@@ -5,7 +5,6 @@ import { debounce } from 'lodash-es'
 import {
   sheetMusic,
   sheetNotes,
-  showKeyboard,
   showKeyboardControl,
   stavesToCheck,
   playNotes,
