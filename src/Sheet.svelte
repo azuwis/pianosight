@@ -267,11 +267,6 @@ onMount(() => {
       loadSheet(sheet)
     }
   }))
-  onDestroy(stavesToCheck.subscribe(() => {
-    if (osmd.cursor) {
-      updateSheetNotes()
-    }
-  }))
 })
 
 onDestroy(() => {
