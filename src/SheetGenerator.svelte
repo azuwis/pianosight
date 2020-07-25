@@ -13,7 +13,7 @@ import {
 } from './osme.min.js'
 import {
   sheetMusic,
-  showSheetGenerator,
+  selectedFile,
 } from './stores.js'
 
 const scaleOptions = [
@@ -41,6 +41,7 @@ let inputComplexity = 6
 let inputMeasure = 32
 
 export function generate() {
+  $selectedFile = 'generate'
   const time_signature = new RhythmInstruction(new Fraction(inputTime, 4, 0, false), RhythmSymbolEnum.NONE)
   const scale_key = ScaleKey.fromStringCode(inputScale)
   const complexity = inputComplexity / 10
@@ -63,7 +64,7 @@ export function generate() {
 </script>
 
 <!-- svelte-ignore a11y-no-onchange -->
-{#if $showSheetGenerator}
+{#if $selectedFile === 'generate'}
 <div class="ml-1">
   <div class="flex flex-wrap items-center justify-center -ml-1">
     <div class="w-auto mt-1 ml-1">

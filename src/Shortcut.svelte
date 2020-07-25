@@ -2,11 +2,11 @@
 import { updateServiceWorker } from './register.js'
 import {
   showSheetNotes,
-  showSheetGenerator,
   showKeyboard,
   keyboardScale,
   stavesToCheck,
-  notification
+  notification,
+  selectedFile,
 } from './stores.js'
 
 export let file
@@ -47,7 +47,6 @@ function onKeydown(event) {
       sheet.goToLastMeasure()
       break
     case 'y':
-      $showSheetGenerator = true
       sheetGenerator.generate()
       break
     case 'p':

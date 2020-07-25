@@ -1,7 +1,7 @@
 <script>
 import {
+  selectedFile,
   sheetMusic,
-  showSheetGenerator,
 } from './stores.js'
 
 export let sheetGenerator
@@ -12,34 +12,28 @@ const builtinFiles = [
   'ode_to_joy.mxl',
 ]
 let customFiles = []
-let select = 'generate'
-
-$: if($showSheetGenerator) {
-  select = 'generate'
-}
 
 export function open() {
   inputFile.click()
 }
 
 export function goTo(offset) {
-  if (select === 'generate') {
+  if ($selectedFile === 'generate') {
     sheetGenerator.generate()
     return
   }
-  let index = builtinFiles.indexOf(select)
+  let index = builtinFiles.indexOf($selectedFile)
   if (index >= 0) {
-    select = builtinFiles[(index + offset) % builtinFiles.length]
+    $selectedFile = builtinFiles[(index + offset) % builtinFiles.length]
   } else {
-    index = customFiles.indexOf(select)
+    index = customFiles.indexOf($selectedFile)
     if (index >= 0) {
-      select = customFiles[(index + offset) % customFiles.length]
+      $selectedFile = customFiles[(index + offset) % customFiles.length]
     }
   }
 }
 
 function readFile(file) {
-  let showGenerator = false
   const type = typeof(file)
   if (type === 'string') {
     switch(file) {
@@ -48,7 +42,6 @@ function readFile(file) {
         break
       case 'generate':
         sheetGenerator.generate()
-        showGenerator = true
         break
       default:
         $sheetMusic = file
@@ -66,7 +59,6 @@ function readFile(file) {
       reader.readAsBinaryString(file)
     }
   }
-  $showSheetGenerator = showGenerator
 }
 
 function showCustomFiles(files) {
@@ -76,7 +68,7 @@ function showCustomFiles(files) {
         || filename.endsWith('.mxl')
   })
   if (customFiles.length) {
-    select = customFiles[0]
+    $selectedFile = customFiles[0]
   }
 }
 
@@ -90,13 +82,13 @@ function onDrop(event) {
 }
 
 $: if(sheetGenerator && sheetGenerator.generate) {
-  readFile(select)
+  readFile($selectedFile)
 }
 </script>
 
 <svelte:window on:drop|preventDefault={onDrop} on:dragover|preventDefault/>
 <input multiple bind:this={inputFile} on:change={onChange} type="file" accept=".xml,.mxl,.musicxml" class="hidden">
-<select bind:value={select} class="form-select" title="Sheet music">
+<select bind:value={$selectedFile} class="form-select" title="Sheet music">
   <optgroup label="Control">
     <option value="generate">
       Generate

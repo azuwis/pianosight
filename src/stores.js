@@ -1,10 +1,10 @@
 import { get, writable } from 'svelte/store'
 import { isTouchScreen } from './utils.js'
 
+export const selectedFile = writable('generate')
 export const sheetMusic = writable('')
 export const sheetNotes = writable(new Map())
 export const showSheetNotes = writable(true)
-export const showSheetGenerator = writable(true)
 export const showKeyboard = writable(true)
 export const showKeyboardControl = writable(false)
 export const keyboardScale = writable(isTouchScreen ? 1.8 : 1.2)
