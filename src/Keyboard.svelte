@@ -7,8 +7,9 @@ import {
   showKeyboard,
   showKeyboardControl,
   keyboardScale,
+  stavesToCheck,
   playNotes,
-  checkPlayNotes
+  checkPlayNotes,
 } from './stores.js'
 import { isTouchScreen } from './utils.js'
 import {
@@ -42,8 +43,8 @@ $: keys = defaultKeys.map(key => {
   let fill = key.defaultFill
   if ($showSheetNotes) {
     let index = 0
-    $sheetNotes.forEach(notes => {
-      if (notes.includes(halfTone)) {
+    $sheetNotes.forEach((notes, staff) => {
+      if ($stavesToCheck.includes(staff) && notes.includes(halfTone)) {
         fill = keyColors[index % keyColors.length]
       }
       index++
