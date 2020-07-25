@@ -6,20 +6,20 @@ let registration
 if (process.env.NODE_ENV === 'production') {
   register('/service-worker.js', {
     registrationOptions: { scope: './' },
-    ready (reg) {
+    ready(reg) {
       registration = reg
     },
-    cached (reg) {
+    cached(reg) {
       notification.set('')
     },
-    updatefound (reg) {
+    updatefound(reg) {
       notification.set('Downloading update...')
     },
-    updated (reg) {
+    updated(reg) {
       notification.set('App updated, refreshing...')
       setTimeout(() => window.location.reload(), 1500)
     },
-    error (error) {
+    error(error) {
       console.error('Error during service worker registration:', error)
     }
   })

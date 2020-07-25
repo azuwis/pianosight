@@ -24,8 +24,8 @@ export function checkPlayNotes() {
     }
   })
   if (nc.length !== 0 &&
-      nc.length <= pn.size &&
-      nc.every(value => pn.has(value))) {
+    nc.length <= pn.size &&
+    nc.every(value => pn.has(value))) {
     playMatch.update(n => n + 1)
   }
 }
