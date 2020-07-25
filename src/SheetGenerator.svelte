@@ -41,7 +41,6 @@ let inputComplexity = 6
 let inputMeasure = 32
 
 export function generate() {
-  $selectedFile = 'generate'
   const time_signature = new RhythmInstruction(new Fraction(inputTime, 4, 0, false), RhythmSymbolEnum.NONE)
   const scale_key = ScaleKey.fromStringCode(inputScale)
   const complexity = inputComplexity / 10

@@ -47,7 +47,11 @@ function onKeydown(event) {
       sheet.goToLastMeasure()
       break
     case 'y':
-      sheetGenerator.generate()
+      if ($selectedFile === 'generate') {
+        sheetGenerator.generate()
+      } else {
+        $selectedFile = 'generate'
+      }
       break
     case 'p':
       $showKeyboard = !$showKeyboard
