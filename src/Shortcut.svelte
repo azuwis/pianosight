@@ -95,7 +95,7 @@ function onKeydown(event) {
       }
       break
     case 's':
-      $stavesToCheck = new Set(numbers)
+      $stavesToCheck = Array.from(new Set(numbers))
       numbers = []
       break
     case 'Escape':

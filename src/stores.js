@@ -8,7 +8,7 @@ export const showSheetNotes = writable(true)
 export const showKeyboard = writable(true)
 export const showKeyboardControl = writable(false)
 export const keyboardScale = writable(isTouchScreen ? 1.8 : 1.2)
-export const stavesToCheck = writable(new Set())
+export const stavesToCheck = writable([])
 export const playNotes = writable(new Set())
 export const playMatch = writable(0)
 export const notification = writable('')
@@ -19,7 +19,7 @@ export function checkPlayNotes() {
   const sc = get(stavesToCheck)
   let nc = []
   sn.forEach((notes, staff) => {
-    if (sc.size === 0 || sc.has(staff)) {
+    if (sc.length === 0 || sc.includes(staff)) {
       nc.push(...notes)
     }
   })
