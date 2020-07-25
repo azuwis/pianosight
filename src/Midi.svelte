@@ -89,7 +89,7 @@ function onChange() {
 <!-- svelte-ignore a11y-no-onchange -->
 <select bind:value={selectedInput} on:change={onChange} class="form-select" title="MIDI devices">
   <option value="all">
-    All Midi Inputs
+    All Midi
   </option>
   {#each $midiInputs as input}
   <option value={input}>
