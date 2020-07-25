@@ -6,6 +6,7 @@ import SheetGenerator from './SheetGenerator.svelte'
 import Keyboard from './Keyboard.svelte'
 import Midi from './Midi.svelte'
 import File from './File.svelte'
+import Staves from './Staves.svelte'
 import Notification from './Notification.svelte'
 import Shortcut from './Shortcut.svelte'
 import Nav from './Nav.svelte'
@@ -69,6 +70,9 @@ onMount(() => {
         </div>
         <div class="w-auto mt-1 ml-1">
           <Midi/>
+        </div>
+        <div class="w-auto mt-1 ml-1">
+          <Staves/>
         </div>
       </div>
     </div>

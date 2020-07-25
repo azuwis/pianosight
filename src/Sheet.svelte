@@ -6,6 +6,7 @@ import {
   sheetMusic,
   sheetNotes,
   showKeyboardControl,
+  allStaves,
   stavesToCheck,
   playNotes,
   playMatch,
@@ -38,6 +39,7 @@ async function loadSheet(sheet) {
     firstMeasure = getCurrentMeasure()
     lastMeasure = osmd.Sheet.SourceMeasures.length + firstMeasure - 1
     updateSheetNotes()
+    $allStaves = new Set(osmd.cursor.VoicesUnderCursor().map(v => v.ParentSourceStaffEntry.ParentStaff.Id))
   }, 0)
 }
 
