@@ -40,6 +40,7 @@ async function loadSheet(sheet) {
     lastMeasure = osmd.Sheet.SourceMeasures.length + firstMeasure - 1
     updateSheetNotes()
     $allStaves = new Set(osmd.cursor.VoicesUnderCursor().map(v => v.ParentSourceStaffEntry.ParentStaff.Id))
+    $stavesToCheck = Array.from($allStaves)
   }, 0)
 }
 

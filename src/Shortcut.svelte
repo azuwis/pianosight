@@ -4,6 +4,7 @@ import {
   showSheetNotes,
   showKeyboard,
   keyboardScale,
+  allStaves,
   stavesToCheck,
   notification,
   selectedFile,
@@ -99,8 +100,12 @@ function onKeydown(event) {
       }
       break
     case 's':
-      $stavesToCheck = Array.from(new Set(numbers))
-      numbers = []
+      if (numbers.length === 0) {
+        $stavesToCheck = Array.from($allStaves)
+      } else {
+        $stavesToCheck = Array.from(new Set(numbers))
+        numbers = []
+      }
       break
     case 'Escape':
       numbers = []

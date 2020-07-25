@@ -20,7 +20,7 @@ export function checkPlayNotes() {
   const sc = get(stavesToCheck)
   let nc = []
   sn.forEach((notes, staff) => {
-    if (sc.length === 0 || sc.includes(staff)) {
+    if (sc.includes(staff)) {
       nc.push(...notes)
     }
   })
