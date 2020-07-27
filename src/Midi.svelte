@@ -63,15 +63,17 @@ function removeAllInputListeners() {
   })
 }
 
-WebMidi.enable((err) => {
-  if (err) {
-    console.log("WebMidi could not be enabled.", err)
-    return
-  }
-  midiListeners = {}
-  WebMidi.addListener('connected', midiConnected)
-  WebMidi.addListener('disconnected', midiDisconnected)
-})
+function enableMidi() {
+  WebMidi.enable((err) => {
+    if (err) {
+      console.error("WebMidi could not be enabled.", err)
+      return
+    }
+    midiListeners = {}
+    WebMidi.addListener('connected', midiConnected)
+    WebMidi.addListener('disconnected', midiDisconnected)
+  })
+}
 
 function onChange() {
   removeAllInputListeners()
@@ -84,6 +86,16 @@ function onChange() {
     }
   }
 }
+
+navigator.permissions.query({name: 'midi'}).then(({state}) => {
+  switch (state) {
+    case 'granted':
+      enableMidi()
+      break
+    default:
+      break
+  }
+})
 </script>
 
 <!-- svelte-ignore a11y-no-onchange -->
