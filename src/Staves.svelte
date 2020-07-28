@@ -8,7 +8,7 @@ import { fromPairs } from "lodash-es";
 Staff
 {#each Array.from($allStaves) as staff}
   <label>
-    <input type=checkbox bind:group={$stavesToCheck} value={staff}>
+    <input type="checkbox" bind:group={$stavesToCheck} value={staff} class="align-middle">
     {staff}
   </label>
 {/each}
