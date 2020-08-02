@@ -9,10 +9,10 @@ import {
   notification,
   selectedFile,
 } from './stores.js'
+import { generate } from './SheetGenerator.svelte'
 
 export let file
 export let sheet
-export let sheetGenerator
 let showShortcut = false
 let numbers = []
 
@@ -49,7 +49,7 @@ function onKeydown(event) {
       break
     case 'y':
       if ($selectedFile === 'generate') {
-        sheetGenerator.generate()
+        generate()
       } else {
         $selectedFile = 'generate'
       }

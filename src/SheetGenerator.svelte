@@ -1,4 +1,5 @@
-<script>
+<script context="module">
+import { get, writable } from 'svelte/store'
 import {
   EngravingRules,
   Fraction,
@@ -35,21 +36,21 @@ const timeOptions = [2, 3, 4]
 const complexityOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 const measureOptions = [8, 16, 32, 48, 64, 96]
 
-let inputScale = scaleOptions[0][0]
-let inputTime = 4
-let inputComplexity = 6
-let inputMeasure = 32
+const inputScale = writable(scaleOptions[0][0])
+const inputTime = writable(4)
+const inputComplexity = writable(6)
+const inputMeasure = writable(32)
 
 export function generate() {
-  const time_signature = new RhythmInstruction(new Fraction(inputTime, 4, 0, false), RhythmSymbolEnum.NONE)
-  const scale_key = ScaleKey.fromStringCode(inputScale)
-  const complexity = inputComplexity / 10
+  const time_signature = new RhythmInstruction(new Fraction(get(inputTime), 4, 0, false), RhythmSymbolEnum.NONE)
+  const scale_key = ScaleKey.fromStringCode(get(inputScale))
+  const complexity = get(inputComplexity) / 10
   const pitch_settings = ComplexityMap.getPitchSettings(complexity)
   const duration_settings = ComplexityMap.getDurationSettings(complexity)
   const rules = new EngravingRules()
   const options = {
     time_signature,
-    measure_count: inputMeasure,
+    measure_count: get(inputMeasure),
     scale_key,
     pitch_settings,
     duration_settings,
@@ -58,7 +59,7 @@ export function generate() {
   const generator = new ExampleSourceGenerator(options)
   const exporter = new XMLSourceExporter()
   const xml = exporter.export(generator.generate())
-  $sheetMusic = xml
+  sheetMusic.set(xml)
 }
 </script>
 
@@ -67,7 +68,7 @@ export function generate() {
 <div class="ml-1">
   <div class="flex flex-wrap items-center justify-center -ml-1">
     <div class="w-auto mt-1 ml-1">
-      <select bind:value={inputScale} on:change={generate} class="form-select form-scale" title="Key signature">
+      <select bind:value={$inputScale} on:change={generate} class="form-select form-scale" title="Key signature">
         {#each scaleOptions as scale}
         <option value={scale[0]}>
           {scale[1]}
@@ -77,7 +78,7 @@ export function generate() {
     </div>
 
     <div class="w-auto mt-1 ml-1">
-      <select bind:value={inputTime} on:change={generate} class="form-select form-time" title="Time signature">
+      <select bind:value={$inputTime} on:change={generate} class="form-select form-time" title="Time signature">
         {#each timeOptions as time}
         <option value={time}>
           {time}/4
@@ -87,7 +88,7 @@ export function generate() {
     </div>
 
     <div class="w-auto mt-1 ml-1">
-      <select bind:value={inputComplexity} on:change={generate} class="form-select form-complexity" title="Complexity">
+      <select bind:value={$inputComplexity} on:change={generate} class="form-select form-complexity" title="Complexity">
         {#each complexityOptions as complexity}
         <option value={complexity}>
           {complexity}
@@ -97,7 +98,7 @@ export function generate() {
     </div>
 
     <div class="w-auto mt-1 ml-1">
-      <select bind:value={inputMeasure} on:change={generate} class="form-select form-measure" title="Number of measures">
+      <select bind:value={$inputMeasure} on:change={generate} class="form-select form-measure" title="Number of measures">
         {#each measureOptions as measure}
         <option value={measure}>
           {measure}

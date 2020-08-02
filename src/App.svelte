@@ -66,7 +66,7 @@ onMount(() => {
     <div class="ml-1">
       <div class="flex flex-wrap items-center justify-center -ml-1">
         <div class="w-32 mt-1 ml-1">
-          <File {sheetGenerator} bind:this={file}/>
+          <File bind:this={file}/>
         </div>
         <div class="w-32 mt-1 ml-1">
           <Midi/>
@@ -86,7 +86,7 @@ onMount(() => {
   </div>
   <Keyboard/>
 </div>
-<Shortcut {...{file, sheet, sheetGenerator}}/>
+<Shortcut {...{file, sheet}}/>
 <Notification/>
 
 <style>

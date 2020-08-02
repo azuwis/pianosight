@@ -3,8 +3,7 @@ import {
   selectedFile,
   sheetMusic,
 } from './stores.js'
-
-export let sheetGenerator
+import { generate } from './SheetGenerator.svelte'
 
 let inputFile
 const builtinFiles = [
@@ -19,7 +18,7 @@ export function open() {
 
 export function goTo(offset) {
   if ($selectedFile === 'generate') {
-    sheetGenerator.generate()
+    generate()
     return
   }
   let index = builtinFiles.indexOf($selectedFile)
@@ -41,7 +40,7 @@ function readFile(file) {
         open()
         break
       case 'generate':
-        sheetGenerator.generate()
+        generate()
         break
       default:
         $sheetMusic = file
@@ -81,9 +80,7 @@ function onDrop(event) {
   showCustomFiles(event.dataTransfer.files)
 }
 
-$: if(sheetGenerator && sheetGenerator.generate) {
-  readFile($selectedFile)
-}
+$: readFile($selectedFile)
 </script>
 
 <svelte:window on:drop|preventDefault={onDrop} on:dragover|preventDefault/>
