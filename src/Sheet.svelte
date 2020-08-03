@@ -12,8 +12,7 @@ import {
   playMatch,
   notification
 } from './stores.js'
-
-export let file
+import { goTo } from './File.svelte'
 
 let osmd
 let sheet
@@ -95,13 +94,13 @@ export function goToNextNote() {
           if (notes.has(48)) { // C
             reset()
           } else if (notes.has(53)) { // F
-            file.goTo(-1)
+            goTo(-1)
             reset()
           } else if (notes.has(55)) { // G
             goToFirstMeasure()
             reset()
           } else if (notes.has(57)) { // A
-            file.goTo(1)
+            goTo(1)
             reset()
           }
         }

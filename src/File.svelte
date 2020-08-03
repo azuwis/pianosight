@@ -1,4 +1,5 @@
-<script>
+<script context="module">
+import { get, writable } from 'svelte/store'
 import {
   selectedFile,
   sheetMusic,
@@ -10,25 +11,32 @@ const builtinFiles = [
   'goodbye_song.mxl',
   'ode_to_joy.mxl',
 ]
-let customFiles = []
+const customFiles = writable([])
 
 export function open() {
   inputFile.click()
 }
 
 export function goTo(offset) {
-  if ($selectedFile === 'generate') {
+  function goToFile(files, file, offset) {
+    let index = files.indexOf(file)
+    if (index >= 0) {
+      let i = (index + offset) % files.length
+      if (i < 0) {
+        i += files.length
+      }
+      selectedFile.set(files[i])
+      return true
+    }
+    return false
+  }
+  const file = get(selectedFile)
+  if (file === 'generate') {
     generate()
     return
   }
-  let index = builtinFiles.indexOf($selectedFile)
-  if (index >= 0) {
-    $selectedFile = builtinFiles[(index + offset) % builtinFiles.length]
-  } else {
-    index = customFiles.indexOf($selectedFile)
-    if (index >= 0) {
-      $selectedFile = customFiles[(index + offset) % customFiles.length]
-    }
+  if (!goToFile(builtinFiles, file, offset)) {
+    goToFile(get(customFiles), file, offset)
   }
 }
 
@@ -43,13 +51,13 @@ function readFile(file) {
         generate()
         break
       default:
-        $sheetMusic = file
+        sheetMusic.set(file)
         break
     }
   } else if (type === 'object') {
     const reader = new FileReader()
     reader.onload = res => {
-      $sheetMusic = res.target.result
+      sheetMusic.set(res.target.result)
     }
     const filename = file.name.toLowerCase()
     if (filename.endsWith('.xml') || filename.endsWith('.musicxml')) {
@@ -61,13 +69,14 @@ function readFile(file) {
 }
 
 function showCustomFiles(files) {
-  customFiles = Array.from(files).filter(file => {
+  const _customFiles = Array.from(files).filter(file => {
     const filename = file.name.toLowerCase()
     return filename.endsWith('.xml') || filename.endsWith('.musicxml')
         || filename.endsWith('.mxl')
   })
-  if (customFiles.length) {
-    $selectedFile = customFiles[0]
+  customFiles.set(_customFiles)
+  if (_customFiles.length) {
+    selectedFile.set(_customFiles[0])
   }
 }
 
@@ -80,7 +89,9 @@ function onDrop(event) {
   showCustomFiles(event.dataTransfer.files)
 }
 
-$: readFile($selectedFile)
+selectedFile.subscribe( file => {
+  readFile(file)
+})
 </script>
 
 <svelte:window on:drop|preventDefault={onDrop} on:dragover|preventDefault/>
@@ -101,9 +112,9 @@ $: readFile($selectedFile)
     </option>
   {/each}
   </optgroup>
-  {#if customFiles.length > 0}
+  {#if $customFiles.length > 0}
   <optgroup label="Custom">
-  {#each customFiles as file}
+  {#each $customFiles as file}
     <option value={file}>
       {file.name.replace(/\.[^/.]+$/, '')}
     </option>

@@ -13,8 +13,6 @@ import Nav from './Nav.svelte'
 import { playMatch } from './stores.js'
 
 let sheet
-let sheetGenerator
-let file
 
 let innerHeight
 let toolbar
@@ -66,7 +64,7 @@ onMount(() => {
     <div class="ml-1">
       <div class="flex flex-wrap items-center justify-center -ml-1">
         <div class="w-32 mt-1 ml-1">
-          <File bind:this={file}/>
+          <File/>
         </div>
         <div class="w-32 mt-1 ml-1">
           <Midi/>
@@ -76,17 +74,17 @@ onMount(() => {
         </div>
       </div>
     </div>
-    <SheetGenerator bind:this={sheetGenerator}/>
+    <SheetGenerator/>
     <div class="ml-1">
       <Nav {sheet}/>
     </div>
   </div>
   <div class="flex-1 overflow-y-auto lg:px-4">
-    <Sheet {file} bind:this={sheet}/>
+    <Sheet bind:this={sheet}/>
   </div>
   <Keyboard/>
 </div>
-<Shortcut {...{file, sheet}}/>
+<Shortcut {sheet}/>
 <Notification/>
 
 <style>

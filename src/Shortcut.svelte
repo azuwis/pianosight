@@ -9,9 +9,9 @@ import {
   notification,
   selectedFile,
 } from './stores.js'
+import { open, goTo } from './File.svelte'
 import { generate } from './SheetGenerator.svelte'
 
-export let file
 export let sheet
 let showShortcut = false
 let numbers = []
@@ -58,13 +58,13 @@ function onKeydown(event) {
       $showKeyboard = !$showKeyboard
       break
     case 'o':
-      file.open()
+      open()
       break
     case 'w':
-      file.goTo(1)
+      goTo(1)
       break
     case 'q':
-      file.goTo(-1)
+      goTo(-1)
       break
     case 'i':
       $showSheetNotes = !$showSheetNotes
