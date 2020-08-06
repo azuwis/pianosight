@@ -16,7 +16,7 @@ if (process.env.NODE_ENV === 'production') {
       notification.set('Downloading update...')
     },
     updated(reg) {
-      notification.set('App updated, refreshing...')
+      notification.set('Refreshing...')
       setTimeout(() => window.location.reload(), 1500)
     },
     error(error) {
