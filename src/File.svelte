@@ -1,7 +1,6 @@
 <script context="module">
 import { get, writable } from 'svelte/store'
 import {
-  selectedFile,
   sheetMusic,
 } from './stores.js'
 import { generate } from './SheetGenerator.svelte'
@@ -12,6 +11,8 @@ const builtinFiles = [
   'ode_to_joy.mxl',
 ]
 const customFiles = writable([])
+
+export const selectedFile = writable('generate')
 
 export function open() {
   inputFile.click()
@@ -88,10 +89,11 @@ function onChange(event) {
 function onDrop(event) {
   showCustomFiles(event.dataTransfer.files)
 }
+</script>
 
-selectedFile.subscribe( file => {
-  readFile(file)
-})
+
+<script>
+$: readFile($selectedFile)
 </script>
 
 <svelte:window on:drop|preventDefault={onDrop} on:dragover|preventDefault/>

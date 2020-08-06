@@ -1,7 +1,6 @@
 import { get, writable } from 'svelte/store'
 import { isTouchScreen } from './utils.js'
 
-export const selectedFile = writable('generate')
 export const sheetMusic = writable('')
 export const sheetNotes = writable(new Map())
 export const showSheetNotes = writable(true)

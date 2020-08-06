@@ -7,9 +7,8 @@ import {
   allStaves,
   stavesToCheck,
   notification,
-  selectedFile,
 } from './stores.js'
-import { open, goTo } from './File.svelte'
+import { selectedFile, open, goTo } from './File.svelte'
 import { generate } from './SheetGenerator.svelte'
 
 export let sheet

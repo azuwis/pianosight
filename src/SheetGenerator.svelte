@@ -14,8 +14,8 @@ import {
 } from './osme.min.js'
 import {
   sheetMusic,
-  selectedFile,
 } from './stores.js'
+import { selectedFile } from './File.svelte'
 
 const scaleOptions = [
   ['major_0-0', 'C'],
