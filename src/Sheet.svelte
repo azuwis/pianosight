@@ -10,6 +10,7 @@ let osmd
 let sheet
 let firstMeasure = 0
 let lastMeasure = 0
+let unsubPlayNotes = () => {}
 
 function updateSheetNotes() {
   const sn = new Map()
@@ -184,7 +185,6 @@ import {
 } from './stores.js'
 import { goTo } from './File.svelte'
 
-let unsubPlayNotes = () => {}
 let innerWidth
 let previousInnerWidth
 
