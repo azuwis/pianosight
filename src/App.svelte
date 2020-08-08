@@ -12,8 +12,6 @@ import Shortcut from './Shortcut.svelte'
 import Nav from './Nav.svelte'
 import { playMatch } from './stores.js'
 
-let sheet
-
 let innerHeight
 let toolbar
 let toolbarHidden = false
@@ -76,15 +74,15 @@ onMount(() => {
     </div>
     <SheetGenerator/>
     <div class="ml-1">
-      <Nav {sheet}/>
+      <Nav/>
     </div>
   </div>
   <div class="flex-1 overflow-y-auto lg:px-4">
-    <Sheet bind:this={sheet}/>
+    <Sheet/>
   </div>
   <Keyboard/>
 </div>
-<Shortcut {sheet}/>
+<Shortcut/>
 <Notification/>
 
 <style>

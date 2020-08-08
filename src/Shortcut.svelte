@@ -10,8 +10,17 @@ import {
 } from './stores.js'
 import { selectedFile, open, goTo } from './File.svelte'
 import { generate } from './SheetGenerator.svelte'
+import {
+  goToMeasure,
+  goToNextNote,
+  goToPreviousMeasure,
+  goToNextMeasure,
+  goToPreviousLine,
+  goToNextLine,
+  goToFirstMeasure,
+  goToLastMeasure,
+} from './Sheet.svelte'
 
-export let sheet
 let showShortcut = false
 let numbers = []
 
@@ -26,25 +35,25 @@ function onKeydown(event) {
       toggleHint()
       break
     case 'n':
-      sheet.goToNextNote()
+      goToNextNote()
       break
     case 'h':
-      sheet.goToPreviousMeasure()
+      goToPreviousMeasure()
       break
     case 'l':
-      sheet.goToNextMeasure()
+      goToNextMeasure()
       break
     case 'k':
-      sheet.goToPreviousLine()
+      goToPreviousLine()
       break
     case 'j':
-      sheet.goToNextLine()
+      goToNextLine()
       break
     case 'r':
-      sheet.goToFirstMeasure()
+      goToFirstMeasure()
       break
     case 'G':
-      sheet.goToLastMeasure()
+      goToLastMeasure()
       break
     case 'y':
       if ($selectedFile === 'generate') {
@@ -94,7 +103,7 @@ function onKeydown(event) {
       break
     case 'g':
       if (numbers.length > 0) {
-        sheet.goToMeasure(numbers.reduce((acc, cur) => acc * 10 + cur))
+        goToMeasure(numbers.reduce((acc, cur) => acc * 10 + cur))
         numbers = []
       }
       break

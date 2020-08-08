@@ -1,47 +1,15 @@
-<script>
-import { onMount, onDestroy } from 'svelte'
-import { OpenSheetMusicDisplay } from 'opensheetmusicdisplay'
-import { debounce } from 'lodash-es'
+<script context="module">
 import {
   sheetMusic,
   sheetNotes,
   showKeyboardControl,
-  allStaves,
-  stavesToCheck,
   playNotes,
-  playMatch,
-  notification
 } from './stores.js'
-import { goTo } from './File.svelte'
 
 let osmd
 let sheet
 let firstMeasure = 0
 let lastMeasure = 0
-let unsubPlayNotes = () => {}
-let innerWidth
-let previousInnerWidth
-
-$playMatch = 0
-
-async function loadSheet(sheet) {
-  $notification = 'Loading sheet...'
-  removeOnMeasureClick()
-  await osmd.load(sheet)
-  osmd.zoom = 1
-  setMargin()
-  setTimeout(() => {
-    osmd.render()
-    osmd.cursor.show()
-    addOnMeasureClick()
-    $notification = ''
-    firstMeasure = getCurrentMeasure()
-    lastMeasure = osmd.Sheet.SourceMeasures.length + firstMeasure - 1
-    updateSheetNotes()
-    $allStaves = new Set(osmd.cursor.VoicesUnderCursor().map(v => v.ParentSourceStaffEntry.ParentStaff.Id))
-    $stavesToCheck = Array.from($allStaves)
-  }, 0)
-}
 
 function updateSheetNotes() {
   const sn = new Map()
@@ -56,7 +24,7 @@ function updateSheetNotes() {
       }
     }
   })
-  $sheetNotes = sn
+  sheetNotes.set(sn)
   if (sn.size === 0) {
     goToNextNote()
   }
@@ -75,10 +43,10 @@ export function goToNextNote() {
   }
   osmd.cursor.next()
   if (osmd.cursor.Iterator.EndReached) {
-    $sheetNotes = new Map()
+    sheetNotes.set(new Map())
     osmd.cursor.hide()
     const reset = () => {
-      $showKeyboardControl = false
+      showKeyboardControl.set(false)
       unsubPlayNotes()
     }
     let enabled = false
@@ -107,7 +75,7 @@ export function goToNextNote() {
       } else {
         if (notes.size === 0) {
           enabled = true
-          $showKeyboardControl = true
+          showKeyboardControl.set(true)
         }
       }
     })
@@ -201,6 +169,44 @@ export function goToNextLine() {
     return
   }
   goToMeasure(nextMeasure)
+}
+</script>
+
+<script>
+import { onMount, onDestroy } from 'svelte'
+import { OpenSheetMusicDisplay } from 'opensheetmusicdisplay'
+import { debounce } from 'lodash-es'
+import {
+  allStaves,
+  stavesToCheck,
+  playMatch,
+  notification
+} from './stores.js'
+import { goTo } from './File.svelte'
+
+let unsubPlayNotes = () => {}
+let innerWidth
+let previousInnerWidth
+
+$playMatch = 0
+
+async function loadSheet(sheet) {
+  $notification = 'Loading sheet...'
+  removeOnMeasureClick()
+  await osmd.load(sheet)
+  osmd.zoom = 1
+  setMargin()
+  setTimeout(() => {
+    osmd.render()
+    osmd.cursor.show()
+    addOnMeasureClick()
+    $notification = ''
+    firstMeasure = getCurrentMeasure()
+    lastMeasure = osmd.Sheet.SourceMeasures.length + firstMeasure - 1
+    updateSheetNotes()
+    $allStaves = new Set(osmd.cursor.VoicesUnderCursor().map(v => v.ParentSourceStaffEntry.ParentStaff.Id))
+    $stavesToCheck = Array.from($allStaves)
+  }, 0)
 }
 
 function onMeasureClick(event) {
