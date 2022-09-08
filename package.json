@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "lodash-es": "^4.17.15",
-    "opensheetmusicdisplay": "^0.8.2",
+    "opensheetmusicdisplay": "^1.5.3",
     "register-service-worker": "^1.7.1",
     "sirv-cli": "^0.4.4",
     "svg-piano": "^0.3.1",
